@@ -1,0 +1,229 @@
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\geometry{a4paper}
+
+\usepackage{graphicx}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{amsfonts}
+\usepackage{eucal}
+\usepackage{mathtools}
+\usepackage{mathrsfs}
+\usepackage{gensymb}
+\usepackage{yfonts}
+\usepackage{epic}
+\usepackage{verbatim}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{cleveref}
+\hypersetup{colorlinks=true,citecolor=blue,linkcolor=blue}
+\usepackage{textcomp}
+\usepackage{marginnote}
+\usepackage{color}
+\usepackage{dsfont}
+\usepackage{tikz}
+\usepackage[font=small,labelfont=bf]{caption}
+\usepackage[super]{nth}
+\usepackage[framemethod=TikZ]{mdframed}
+\mdfdefinestyle{MyFrame}{%
+    linecolor=black!75!white,
+    outerlinewidth=2pt,
+    roundcorner=20pt,
+    innertopmargin=\baselineskip,
+    innerbottommargin=\baselineskip,
+    innerrightmargin=20pt,
+    innerleftmargin=20pt,
+    backgroundcolor=white}
+\definecolor{g3}{gray}{0.9}
+\mdfdefinestyle{prob}{%
+    linecolor=black!75!white,
+    outerlinewidth=2pt,
+    roundcorner=5pt,
+    %innertopmargin=\baselineskip,
+    %innerbottommargin=\baselineskip,
+    innerrightmargin=20pt,
+    innerleftmargin=20pt,
+    backgroundcolor=g3}
+
+\usepackage{fancyhdr}
+\usepackage{float}
+
+
+% Margin Settings
+
+\oddsidemargin=.2in
+\evensidemargin=.2in
+\topmargin=-.5in
+\textheight=9in
+\textwidth=6in
+
+
+% Page Styling 
+\fancypagestyle{firststyle}{
+\fancyhead[L]{\includegraphics[height=35pt, width= 202 pt, keepaspectratio]{../images/PUMaC_logo_color.png}}
+\fancyhead[R]{\includegraphics[height=50pt, width=40 pt]{../images/PU_Shield.jpg}}}
+\fancypagestyle{plain}{
+\lhead{PUMaC 2022 Power Round}
+\lhead{\includegraphics[height=17.5pt, width= 101 pt, keepaspectratio]{../images/PUMaC_logo_color.png}}
+\rhead{\includegraphics[height=25pt, width=20 pt]{../images/PU_Shield.jpg}}
+\cfoot{}
+\fancyfoot[R]{\thepage}
+\footskip = 10 pt
+\renewcommand{\headrulewidth}{0.2pt}}
+
+
+% Theorem Styling
+
+\theoremstyle{definition}
+\newtheorem{defn}{Definition}[subsection]
+\newtheorem{prob}{Problem}[section]
+\renewcommand{\theprob}{\thesection.\arabic{prob}}
+
+\newtheorem{thm}{Theorem}[subsection]
+\newtheorem{lem}{Lemma}[subsection]
+\newtheorem{example}{Example}[subsection]
+\newtheorem{prop}{Proposition}[subsection]
+
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}[subsection]
+% Blackboard Math
+\newcommand{\mbA}{\mathbb{A}}
+\newcommand{\BB}{\mathbb{B}}
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\DD}{\mathbb{D}}
+\newcommand{\EE}{\mathbb{E}}
+\newcommand{\FF}{\mathbb{F}}
+\newcommand{\GG}{\mathbb{G}}
+\newcommand{\HH}{\mathbb{H}}
+\newcommand{\II}{\mathbb{I}}
+\newcommand{\JJ}{\mathbb{J}}
+\newcommand{\KK}{\mathbb{K}}
+\newcommand{\LL}{\mathbb{L}}
+\newcommand{\MM}{\mathbb{M}}
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\OO}{\mathbb{O}}
+\newcommand{\PP}{\mathbb{P}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\mbS}{\mathbb{S}}
+\newcommand{\TT}{\mathbb{T}}
+\newcommand{\UU}{\mathbb{U}}
+\newcommand{\VV}{\mathbb{V}}
+\newcommand{\WW}{\mathbb{W}}
+\newcommand{\XX}{\mathbb{X}}
+\newcommand{\YY}{\mathbb{Y}}
+\newcommand{\ZZ}{\mathbb{Z}}
+
+
+% Math Calligraphy 
+\newcommand{\mcA}{\mathcal{A}}
+\newcommand{\mcB}{\mathcal{B}}
+\newcommand{\mcC}{\mathcal{C}}
+\newcommand{\mcD}{\mathcal{D}}
+\newcommand{\mcE}{\mathcal{E}}
+\newcommand{\mcF}{\mathcal{F}}
+\newcommand{\mcG}{\mathcal{G}}
+\newcommand{\mcH}{\mathcal{H}}
+\newcommand{\mcI}{\mathcal{I}}
+\newcommand{\mcJ}{\mathcal{J}}
+\newcommand{\mcK}{\mathcal{K}}
+\newcommand{\mcL}{\mathcal{L}}
+\newcommand{\mcM}{\mathcal{M}}
+\newcommand{\mcN}{\mathcal{N}}
+\newcommand{\mcO}{\mathcal{O}}
+\newcommand{\mcP}{\mathcal{P}}
+\newcommand{\mcQ}{\mathcal{Q}}
+\newcommand{\mcR}{\mathcal{R}}
+\newcommand{\mcS}{\mathcal{S}}
+\newcommand{\mcT}{\mathcal{T}}
+\newcommand{\mcU}{\mathcal{U}}
+\newcommand{\mcV}{\mathcal{V}}
+\newcommand{\mcW}{\mathcal{W}}
+\newcommand{\mcX}{\mathcal{X}}
+\newcommand{\mcY}{\mathcal{Y}}
+\newcommand{\mcZ}{\mathcal{Z}}
+
+% Math Scribble
+
+\newcommand{\sA}{\mathscr{A}}
+\newcommand{\sB}{\mathscr{B}}
+\newcommand{\sC}{\mathscr{C}}
+\newcommand{\sD}{\mathscr{D}}
+\newcommand{\sE}{\mathscr{E}}
+\newcommand{\sF}{\mathscr{F}}
+\newcommand{\sG}{\mathscr{G}}
+\newcommand{\sH}{\mathscr{H}}
+\newcommand{\sI}{\mathscr{I}}
+\newcommand{\sJ}{\mathscr{J}}
+\newcommand{\sK}{\mathscr{K}}
+\newcommand{\sL}{\mathscr{L}}
+\newcommand{\sM}{\mathscr{M}}
+\newcommand{\sN}{\mathscr{N}}
+\newcommand{\sO}{\mathscr{O}}
+\newcommand{\sP}{\mathscr{P}}
+\newcommand{\sQ}{\mathscr{Q}}
+\newcommand{\sR}{\mathscr{R}}
+\newcommand{\sS}{\mathscr{S}}
+\newcommand{\sT}{\mathscr{T}}
+\newcommand{\sU}{\mathscr{U}}
+\newcommand{\sV}{\mathscr{V}}
+\newcommand{\sW}{\mathscr{W}}
+\newcommand{\sX}{\mathscr{X}}
+\newcommand{\sY}{\mathscr{Y}}
+\newcommand{\sZ}{\mathscr{Z}}
+
+% Topological Operators
+\DeclareMathOperator{\tint}{int}
+\DeclareMathOperator{\rint}{relint}
+\DeclareMathOperator{\rbd}{relbd}
+\DeclareMathOperator{\clo}{clo}
+\DeclareMathOperator{\bd}{bd}
+\DeclareMathOperator{\dist}{dist}
+\DeclareMathOperator{\vtx}{\mathsf{vtx}}
+
+% Affine / Linear Algebra and Geometry
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\DeclareMathOperator{\Vol}{Vol}
+\DeclareMathOperator{\aff}{aff}
+\DeclareMathOperator{\conv}{conv}
+\DeclareMathOperator{\lin}{lin}
+\DeclareMathOperator{\pos}{pos}
+
+\newcommand{\area}{\mathsf{area}}
+\newcommand{\per}{\mathsf{per}}
+\newcommand{\1}{\mathds{1}}
+\newcommand{\sgn}{\mathsf{sgn}}
+
+
+\DeclareMathOperator{\diam}{diam}
+\DeclareMathOperator{\im}{im}
+
+\hypersetup{%
+  colorlinks=true,
+  linkcolor=blue,
+  linkbordercolor={0 0 1}
+}
+
+\newenvironment{problem}
+    { \begin{mdframed}[backgroundcolor=gray!10] }
+    {  \end{mdframed}}
+    
+\newenvironment{solution}
+    { \medskip \noindent \textbf{Solution.}}
+    
+
+
+\newtheorem{innercustomthm}{Theorem}
+\newenvironment{customthm}[1]
+  {\renewcommand\theinnercustomthm{#1}\innercustomthm}
+  {\endinnercustomthm}
+  
+\newtheorem{innercustomlemma}{Lemma}
+\newenvironment{customlemma}[1]{\renewcommand\theinnercustomlemma{#1}\innercustomlemma}{\endinnercustomlemma}
+
+\newtheorem{innercustomclaim}{Claim}
+\newenvironment{customclaim}[1]{\renewcommand\theinnercustomclaim{#1}\innercustomclaim}{\endinnercustomclaim}
+
+\newtheorem*{theorem}{Theorem}
+
+\newtheorem*{lemma}{Lemma}

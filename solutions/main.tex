@@ -1,0 +1,2013 @@
+\documentclass[12pt]{article}
+\usepackage{style}
+\usepackage{hyperref} \hypersetup{ colorlinks=true, linkcolor=blue, filecolor=magenta, urlcolor=cyan, pdftitle={Overleaf Example}, pdfpagemode=FullScreen, }
+\usepackage[margin=0.75in]{geometry}
+\setcounter{section}{-1}
+\begin{document}
+
+\title{PUMaC 2021 Official Solutions}
+\author{Alan Yan}
+\date{March 27th, 2022}
+\maketitle
+\tableofcontents
+\newpage 
+
+\section{Introduction}
+
+Congratulations on completing the PUMaC 2021 Power Round! This document contains the solutions to all of the problems. If you see any errors or typos, feel free to email \texttt{alanyan@princeton.edu}. Before you begin reading the solutions, I would recommend first skimming the \textbf{Acknowledgements} and \textbf{Use of References} sections if interested. Without these resources and people, the power round would not have been possible. The \textbf{Use of References} section is also helpful if you are looking to learn more about a specific topic covered in the power round.  
+
+\subsection{Acknowledgements}
+
+I would like to sincerely thank \textbf{Aleksa Milojevic}, \textbf{Daniel Carter}, \textbf{Igor Medvedev}, and \textbf{Marko Medvedev} for their incredible support and feedback in the writing of the power round. This project would certainly not have been possible without their assistance and experience. I would also like to thank \textbf{Ollie Thakar} for his enthusiastic willingness to line-edit the final draft of the power round even though the draft was given to him at the last minute. Having written by far the longest power round in PUMaC history, I understand that the editing process was arduous and unpleasant. There would almost surely be many more typos without his help. \\
+
+
+I would like to thank \textbf{Professor Joel A. Tropp} for providing his lectures on convex geometry. His notes are truly a pedagogical masterpiece and helped me immensely in learning the subject in a short amount of time. I am also really thankful to \textbf{Professor Ramon van Handel} for introducing to me the Alexandrov-Fenchel inequality and other topics in the theory of convex bodies. Without our meetings, this power round would have almost surely been a mess. \\
+
+Finally, I'd like to thank all of the \textbf{participants} of the competition. You all helped the power round run smoother by quickly catching all of the remaining typos. I hope you enjoyed working through the power round and learned some new math along the way. 
+
+
+\subsection{Use of References}
+
+For the basics in real analysis and linear algebra, we refer the reader to \cite{baby-rudin}, \cite{stein}, and \cite{axler}. For the reader who is interested in convex bodies, mixed volumes, and the Alexandrov-Fenchel inequality, I recommend the books \cite{schneider_2013}, \cite{Hug2020}, and \cite{Gardner}. The last paper \cite{Gardner} is an especially beautiful read and is a good exposition to the intended proof of Problem~\ref{problem-4.8}. For the basics in fractal geometry, which appeared in Problem~\ref{problem-2.18}, we recommend \cite{Falconer}. For the basics in Markov chains, which appears in Problem~\ref{problem-1.12}, \cite{Levin2017-aj} is the classical book. For the basics on matroid theory, we recommend the nice monograph \cite{oxley}. \\
+
+There are a quite a few papers from which we borrowed results. The first is of course \cite{bochner} which contains the intended proof of Problem~\ref{problem-4.9}. The last two applications can be found in \cite{Stanley1981TwoCA} with some extra information in \cite{Stanley1986}. \\
+
+The various images were found throughout the aforementioned references, except for the image depicting Minkowski sum. That image was taken from \cite{article}. 
+
+
+\newpage
+\section{Some Linear Algebra and Topology}
+\subsection{Problem 1.1}
+
+\begin{problem}
+	Find a non-trivial subspace of the vector space $\mathbb{R}^2$. 
+\end{problem}
+
+\begin{proof}
+	There are many possible answers. One example is $\{(0, y) \in \RR^2 : y \in \RR\}$.
+\end{proof}
+
+\newpage 
+
+\subsection{Problem 1.2} 
+
+\begin{problem}
+	For a subset of vectors $S \subset V$, prove that there is a vector subspace $W \subset V$ containing $S$ such that for any subspace $W_0 \subset V$ containing $S$, the vector space $W$ is contained in $W_0$.  
+\end{problem}
+
+\begin{proof}
+	Let $\mcF$ be the collection of vector subspaces which contain $S$. This collection is non-empty because $V \in \mcF$. Hence, the space
+	\[
+		W := \bigcap_{V \in \mcF} V
+	\]
+	is well-defined. By construction, $W \subset W_0$ for all vector subspaces $W_0$ containing $S$ and $S \in W$. It is not difficult to prove that $W$ is also a vector subspace. Thus, the vector space $W$ is our desired subspace. 
+\end{proof}
+
+\newpage 
+
+\subsection{Problem 1.3}
+
+\begin{problem}
+	If $A \subset \RR^n$ is a (non-empty) affine space, prove that there exists a (not necessarily unique) vector $v \in \RR^n$ and a unique vector space $V \subset \RR^n$ such that $A = v + V$. 
+\end{problem}
+
+\begin{proof}
+	Since $A$ is non-empty, we can pick some arbitrary vector $v \in A$. Let $V := A - v$. We first prove that $V$ is a vector space. To prove this, let $a_1 - v, a_2 - v \in V$ be two arbitrary vectors where $a_1, a_2 \in A$ and let $\lambda \in \RR$ be an arbitrary real number. Then, we have 
+	\[
+		\lambda (a_1 - v) + (a_2 - v) = (\lambda a_1 + a_2 - \lambda v) - v \in A - v
+	\]
+	since $\lambda a_1 + a_2 - \lambda v$ is an affine combination of vectors in $A$. Thus $V$ is a vector space with $A = v + V$. It suffices to prove that $V$ is the unique vector space which is a translate of $A$. Suppose that we can write $A$ as $A = v_1 + V_1 = v_2 + V_2$ for vectors $v_1, v_2$ and vector subspaces $V_1, V_2$. This implies that 
+	\[
+		v_1 - v_2 + V_1 = V_2. 
+	\]
+	Since $0 \in V_2$, there is a vector $v_1^* \in V_1$ such that 
+	\[
+		(v_1 - v_2) + v_1^* = 0 \implies v_1 - v_2 = -v_1^*.
+	\]
+	This implies that $V_2 = v_1 - v_2 + V_1 = (-v_1^*) + V_1 = V_1$, which proves uniqueness. This suffices for the proof. 
+\end{proof}
+\newpage 
+
+\subsection{Problem 1.4}
+
+\begin{problem}
+	Suppose that the vectors $v_1, \ldots, v_m \in V$ are linearly independent. Prove that every vector in $\lin \{v_1, \ldots, v_m\}$ can be written uniquely as a linear combination of $v_1, \ldots, v_m$. 
+\end{problem}
+
+\begin{proof}
+	Let $v \in \lin \{v_1, \ldots, v_m\}$ be an arbitrary vector. By definition of the linear span, $v$ can be written as the linear combination of $v_1, \ldots, v_m$. It suffices to prove that there exists only one linear combination that gives $v$. Suppose that we have two representations
+	\[
+		v = \sum_{i = 1}^m \lambda_i v_i = \sum_{i = 1}^m \mu_i v_i.
+	\]
+	If we subtract the two representations, we then get a linear relation (representation of zero):
+	\[
+		\sum_{i = 1}^m (\lambda_i - \mu_i) v_i = 0.
+	\]
+	Since $v_1, \ldots, v_m$ are linearly independent, we must have $\lambda_i = \mu_i$ for all $i$. This proves that the representation is unique. 
+\end{proof}
+
+\newpage 
+
+\subsection{Problem 1.5}
+
+\begin{problem}
+	Prove that $\dim \RR^n = n$. 
+\end{problem}
+\begin{proof}
+	Consider the collection $\mcB = \{e_1, \ldots, e_n\}$ where $e_i$ is vector with $i$th coordinate is $1$ and other coordinates $0$. The collection $\mcB$ is clearly linearly independent. Since it spans $\RR^n$, it must be a maximal linearly independent set. This proves that $\mcB$ is a basis of $\RR^n$. Hence, $\dim \RR^n = |\mcB| = n$. 
+\end{proof}
+
+\newpage 
+
+\subsection{Problem 1.6}
+
+\begin{problem}
+	On the vector space $\RR^n$, prove that the function $\langle \cdot, \cdot \rangle_2 : \RR^n \times \RR^n \to \RR$ defined as 
+	\[
+		\langle x, y \rangle_2 := \sum_{i = 1}^n x_i y_i
+	\]
+	is an inner product. 
+\end{problem}
+\begin{proof}
+	We verify that $\langle \cdot, \cdot \rangle_2$ satisfies each property of an inner product separately. 
+	\begin{enumerate}[label = (\alph*)]
+		\item (Positive-Definiteness) We have $\langle x, x \rangle_2 = \sum_{i = 1}^n x_i^2 \geq 0$. Now, suppose that $\langle x, x \rangle_2 = 0$. Then, we have that 
+		\[
+			\sum_{i = 1}^n x_i^2 = 0 \implies x_i = 0 \text{ for all } 1 \leq i \leq n
+		\]
+		or $x = 0$. This proves that the bilinear form is positive-definite. 
+
+		\item (Symmetry) For any pair $x, y \in \RR^n$, we have that 
+		\[
+			\langle x, y \rangle_2 = \sum_{i = 1}^n x_iy_i = \sum_{i = 1}^n y_ix_i = \langle y, x \rangle_2. 
+		\]
+		This proves symmetry. 
+
+		\item (Linearity in the First Variable) For any $x, y, z \in \RR^n$ and $\lambda \in \RR$, we have 
+		\[
+			\langle \lambda x + y, z \rangle_2 = \sum_{i = 1}^n (\lambda x_i + y_i) z_i = \lambda \sum_{i = 1}^n x_i z_i + \sum_{i = 1}^n y_i z_i = \lambda \langle x, z \rangle + \langle y, z \rangle. 
+		\]
+		This suffices for the proof. 
+	\end{enumerate}
+\end{proof}
+
+\newpage 
+
+\subsection{Problem 1.7}
+
+\begin{problem}
+	Let $V$ be a vector space and $u_1, \ldots, u_n$ be an orthonormal basis with respect to an inner product $\langle \cdot, \cdot \rangle$. Then, for every $v \in V$, prove that 
+	\[
+		v = \sum_{k = 1}^n \langle v, u_k \rangle u_k. 
+	\]
+\end{problem}
+\begin{proof}
+	Since $u_1, \ldots, u_n$ is a basis, we can write $v$ as 
+	\[
+		v = \lambda_1 u_1 + \ldots + \lambda_n u_n
+	\]
+	for some constants $\lambda_1, \ldots, \lambda_n \in \RR$. Since $u_1, \ldots, u_n$ are orthonormal, we get 
+	\[
+		\langle v, e_i \rangle = \sum_{j = 1}^n \lambda_i \langle e_j, e_i \rangle = \lambda_i
+	\]
+	for all $1 \leq i \leq n$. This implies that 
+	\[
+		v = \sum_{i = 1}^n \langle v, e_i \rangle e_i
+	\]
+	which suffices for the proof. 
+\end{proof}
+
+\newpage 
+
+\subsection{Problem 1.8}
+
+\begin{problem}
+	Consider the inner product on $\RR^3$ defined by
+	\[
+		\langle x, y \rangle := x_1 y_1 + 2 x_2y_2 + 3x_3y_3.
+	\]
+	Find an orthonormal basis of $\RR^3$ with respect to this inner product. 
+\end{problem}
+\begin{proof}
+	There are many answers. One example is 
+	\begin{align*}
+		v_1 & := (1, 0, 0) \\
+		v_2 & := (0, 2^{-1/2}, 0) \\
+		v_3 & := (0, 0, 3^{-1/2}).
+	\end{align*}
+\end{proof}
+
+\newpage 
+
+\subsection{Problem 1.9}
+
+\begin{problem} \label{problem-1.9}
+	Let $v_1, \ldots, v_n \in \RR^n$ be a basis and let $\alpha_1, \ldots, \alpha_n \in \RR$ be real numbers. Prove that there is exactly one vector $w \in \RR^n$ that satisfies
+	\[
+		\langle v_i, w \rangle = \alpha_i
+	\]
+	for all $1 \leq i \leq n$. 
+\end{problem}
+
+\begin{proof}
+	Let $T : \RR^n \to \RR^n$ be the linear map defined by 
+	\[
+		T(v) = \sum_{i = 1}^n \langle v_i, v \rangle e_i
+	\]
+	for $v \in \RR^n$. It suffices to prove that $T$ is an isomorphism. Consider an arbitrary vector $v \in \ker T$. Then $\langle v_i, v \rangle = 0$ for all $1 \leq i \leq n$. Since $v_1, \ldots, v_n$ is a basis, we can write $v = \sum_{i = 1}^n \lambda_i v$ for some constants $\lambda_i$. Then 
+	\[
+		\langle v,  v \rangle = \sum_{i = 1}^n \lambda_i \langle v_i, v \rangle = 0.
+	\]
+	This implies that $v = 0$ and $\ker T = 0$. From Theorem 1.3.1, we have $\dim \im T = n$. This means that $\ker T = 0$ and $\im T = \RR^n$. Hence $T$ is an isomorphism, which suffices for the proof. 
+\end{proof}
+
+\newpage 
+
+\subsection{Problem 1.10}
+
+\begin{problem} \label{problem-1.10}
+	Let $A : \RR^n \to \RR^n$ be a self-adjoint linear map with respect to some inner product $\langle \cdot, \cdot \rangle$. 
+	\begin{enumerate}[label = (\alph*)]
+		\item Let $\lambda$ be the largest eigenvalue of $A$. Prove that 
+		\[
+			\lambda = \sup_{x \neq 0} \frac{\langle x, Ax \rangle}{\langle x, x \rangle}.
+		\]
+
+		\item If $A$ is positive semi-definite, prove that 
+		\[
+			\langle x, Ay \rangle^2 \leq \langle x, Ax \rangle \cdot \langle y, Ay \rangle
+		\]
+		for all $x, y \in \RR^n$. 
+	\end{enumerate}
+\end{problem}
+
+\begin{proof}
+	Let $u_1, \ldots, u_n$ be an orthonormal basis of eigenvectors with eigenvalues $\lambda_1 \geq \ldots \geq \lambda_n$. The existence of such a basis is guarenteed by Theorem 1.4.1.
+	\begin{enumerate}[label = (\alph*)]
+		\item For $x = \sum_{i = 1}^n x_i u_i \neq 0$, we have that 
+		\[
+			\frac{\langle x, Ax \rangle}{\langle x, x \rangle} = \frac{\sum_{i = 1}^n \lambda_i x_i^2}{\sum_{i = 1}^n x_i^2} \leq \frac{\sum_{i = 1}^n \lambda_1 x_i^2}{\sum_{i = 1}^n x_i^2} = \lambda_1.
+		\]
+		The maximum is achieved for example when $x = u_1$. This proves (a). 
+
+		\item The hypothesis implies that $\lambda_n \geq 0$. The inequality is equivalent to 
+		\[
+			\left ( \sum_{i = 1}^n \lambda_i x_i y_i \right )^2 \leq \left ( \sum_{i = 1}^n \lambda_i x_i^2 \right) \left ( \sum_{i = 1}^n \lambda_i y_i^2 \right )
+		\]
+		which follows from the Cauchy-Schwartz inequality. 
+	\end{enumerate}
+\end{proof}
+
+\newpage 
+
+\subsection{Problem 1.11}
+
+\begin{problem} \label{problem-1.11}
+	Suppose that $A : \RR^n \to \RR^n$ is self-adjoint with respect to some inner product $\langle \cdot, \cdot \rangle$. Prove that the following two conditions are equivalent:
+    \begin{enumerate}[label = (\roman*)]
+        \item The space spanned by the eigenvectors with positive eigenvalues has dimension at most $1$.
+        \item Whenever $\langle y, Ay \rangle \geq 0$, we have $\langle x, Ay \rangle^2 \geq \langle x, Ax \rangle \langle y, Ay \rangle$ for all $x$. 
+    \end{enumerate}
+\end{problem}
+
+\begin{proof}
+	If $A$ has no positive eigenvalue, then the conclusion follows immediately. Thus, we assume that $A$ has at least one positive eigenvalue. Under this assumption, we prove that the following three statements are equivalent:
+	\begin{enumerate}[label = (\roman*)]
+		\item The space spanned by the eigenvectors with positive eigenvalue is one-dimensional.
+		\item There exists a vector $w$ such that for all $x$ satisfying $\langle x , Aw \rangle = 0$, we have $\langle x, Ax \rangle \leq 0$.
+		\item Whenever $\langle y, Ay \rangle \geq 0$, we have $\langle x, Ay \rangle^2 \geq \langle x, Ax \rangle \langle y, Ay \rangle$ for all $x$. 
+	\end{enumerate}
+	We first prove that (iii) implies (i). Let $y$ be an eigenvector of eigevalue $\lambda$ where $\lambda > 0$. Then $\langle y, Ay \rangle = \lambda \norm{y}^2 \geq 0$. This implies that 
+	\[
+		\lambda^2 \langle x, y \rangle^2 = \langle x, Ay \rangle^2 \geq \lambda \langle x, Ax \rangle  \langle y, y \rangle
+	\]
+	for all $x$. Suppose for the sake of contradiction that the space spanned by the eigenvectors with positive eigenvalues has dimension more than $1$. Then, there exists some vector $x$ of eigenvalue $\mu > 0$ which is orthogonal to $y$. But then $0 \geq \langle x, Ax \rangle = \mu \norm{x}^2$ which contradicts the positivity of $\mu$. This proves that the positive eigenspace of $A$ is one-dimensional. \\
+
+	Next, we prove that (i) implies (ii). Let $v \in S^{n-1}$ be the eigenvector of the largest eigenvalue $\lambda$. But construction, $\lambda > 0$. From Problem~\ref{problem-1.10}, we can represent the second largest eigenvalue $\lambda_2$ as 
+	\[
+		\lambda_2 = \sup \{ \langle x, Ax \rangle : \norm{x} = 1, \langle x, v \rangle = 0\}.
+	\]
+	From (i), the eigenvalue $\lambda_2$ is at most $0$. Then $w = v$ is a valid vector for (ii). Indeed, let $x$ be a vector satisfying $\langle x, Av \rangle = 0$. Since $\langle x, Av \rangle = \lambda \langle x, v \rangle$ where $\lambda > 0$, this implies that $\langle x, v \rangle = 0$. Hence, by definition of $\lambda_2$, we have
+	\[
+		\langle x, Ax \rangle \leq \sup \{\langle x, Ax \rangle : \norm{x} = 1, \langle x, v \rangle = 0 \} \cdot \norm{x}^2 = \lambda_2 \norm{x}^2 \leq 0.
+	\]
+
+	Finally, we prove that (ii) implies (iii). If $\langle y, Ay \rangle = 0$, then the inequality in (iii) automatically holds. Now assume that $\langle y, Ay \rangle > 0$. Then $\langle y, Aw \rangle \neq 0$ from (ii) and we can define $z := x - a y$ where $a = \langle x, Aw \rangle / \langle y, Aw \rangle$. Then 
+	\[
+		\langle z, Aw \rangle = \langle x - ay, Aw \rangle = \langle x, Aw \rangle - a \langle y,Aw \rangle = 0.
+	\]
+	From (ii), we have
+	\[
+		0 \geq \langle z, Az \rangle = \langle x, Ax \rangle - 2a \langle x, Ay \rangle + a^2 \langle y, Ay \rangle.
+	\]
+	The right hand side is a quadratic in $a$ and has minimum value $\langle x, Ax \rangle - \frac{\langle x, Ay \rangle^2}{\langle y, Ay \rangle}$. This suffices for the proof.
+\end{proof}
+
+\newpage 
+
+\subsection{Problem 1.12}
+
+\begin{problem} \label{problem-1.12}
+	Suppose that there are $n$ lily pads numbered $1, \ldots, n$ on a pond and numbers $0 < p_{ij} < 1$ for $1 \leq i, j \leq n$ such that $\sum_j p_{ij} = 1$ for all $1 \leq i \leq n$. Aleksa, being an enjoyer of aquatic plants, asks you to come up with an $n$-tuple $(\pi_1, \ldots, \pi_n)$ where $\pi_1, \ldots, \pi_n \geq 0$ and $\pi_1 + \ldots + \pi_n = 1$. With probability $\pi_i$, Aleksa will initially step onto lily pad $i$. From then on, if Aleksa is on lily pad $j$ for some $1 \leq j \leq n$, he will move to lily pad $k$ with probability $p_{jk}$ and rest there for a second. Prove that there exists a unique $n$-tuple $(\pi_1, \ldots, \pi_n)$ that you can give to Aleksa such that at any time, the probability that he will be at lily pad $k$ is $\pi_k$ for all $1 \leq k \leq n$.
+\end{problem}
+
+\begin{proof}
+	Define the matrix $P := [p_{ij}]$. Let $\pi$ be a column vector with the distribution of Aleksa's initial starting point. By a standard induction argument, $P^{n}\pi$ is the distribution of Aleksa's position at time $n$. Thus, we want to prove that there is a unique distribution vector $\pi$ such that $P \pi = \pi$. From the hypothesis, $P$ is a graphic matrix with respect to the complete graph including loops. Note that the uniform row vector of $1$'s is a strictly positive left eigenvector of eigenvalue $1$. Thus, Theorem 1.4.2 implies that there is a unique eigenvector of eigenvalue $1$ with strictly positive entries. By normalizing this vector so that the entries sum to $1$, we have the desired distribution. 
+\end{proof}
+
+\newpage 
+
+\subsection{Problem 1.13}
+
+\begin{problem}
+	We call a map $\chi : S_n \to \{-1, 1\}$ a \textbf{character} (of $S_n$) if $\chi(\pi_1 \circ \pi_2) = \chi(\pi_1) \cdot \chi(\pi_2)$ for all $\pi_1, \pi_2 \in S_n$. Prove that there are exactly two characters of $S_n$ when $n \geq 2$.
+\end{problem}
+
+\begin{proof}
+    A transposition is a permutation which swaps two letters. It is a standard exercise in induction to prove that the permutation group is generated by transpositions. Hence, to specify the data of a character, it suffices to specify it on transpositions. Moreover, if we have two transpositions $\tau, \sigma$ there are two possible cases. 
+    \begin{enumerate}[label = (\roman*)]
+        \item \textit{The transpositions $\tau$ and $\sigma$ do not share any letters}. Without loss of generality, we can let $\tau = (12)$ and $\sigma = (34)$. Then $\tau = \nu^{-1} \sigma \nu$ where $\nu = (13)(24)$. 
+        \item \textit{The transpositions $\tau$ and $\sigma$ share exactly one letter}. Without loss of generality, we can let $\tau = (12)$ and $\sigma = (23)$. Then $\tau = \nu^{-1} \sigma \nu$ where $\nu = (132)$. 
+    \end{enumerate}
+    In both cases, there exists some permutation $\nu$ such that $\tau = \nu^{-1} \sigma \nu$. Thus $\chi(\tau) = \chi(\nu^{-1}) \chi(\sigma) \chi(\nu) = \chi(\sigma)$. This implies that characters must be constant on transpositions. Thus, it must be the case that $\chi(\tau) = 1$ for all transpositions or $\chi(\tau) = -1$ for all transpositions. In the first case, we have the trivial character which maps every permutation to $1$. It suffices to prove that the other character is well-defined. For any permutation $\pi \in S_n$, define the map $T^\pi$ which sends the basis vector $e_i$ to $T^\pi(e_i) = e_{\pi(i)}$. Then, Theorem 1.5.1 and Proposition 1.5.1 implies that the map 
+    \[
+    	\chi (\pi) := D(T^\pi e_1, \ldots, T^\pi e_n)
+    \]
+    is a well-defined character with these properties.
+\end{proof}
+
+\newpage 
+
+\subsection{Problem 1.14}
+
+\begin{problem}
+	In this exercise, you will compute a few determinants. 
+    \begin{enumerate}[label = (\alph*)]
+        \item Compute the determinant of $\begin{bmatrix} 1 & 2 & 3 \\ 4 & 5 & 6 \\ 7 & 8 & 9 \end{bmatrix}$. 
+        \item Let $v_1, \ldots, v_n$ be a collection of linearly dependent vectors. Compute $D(v_1, \ldots, v_n)$. 
+        \item Let $v_1, \ldots, v_n$ be an orthonormal basis of $\RR^n$. Compute $|D(v_1, \ldots, v_n)|$. 
+    \end{enumerate}
+\end{problem}
+\begin{proof}
+	This problem has three parts.
+	\begin{enumerate}[label = (\alph*)]
+		\item The answer is $0$.
+		\item The answer is $0$. 
+		\item The answer is $1$.
+	\end{enumerate}
+\end{proof}
+
+\newpage 
+
+\subsection{Problem 1.15}
+
+\begin{problem}
+	Prove that for any subset $E \subset \RR$, if suprema or infima exist they must be unique. 
+\end{problem}
+
+\begin{proof}
+	Let $\alpha$ and $\beta$ be suprema. Since they are both least upper bounds and upper bounds we have $\alpha \leq \beta$ and $\beta \leq \alpha$. This suffices for the proof. The same proof works for infimum.
+\end{proof}
+
+\newpage 
+
+\subsection{Problem 1.16}
+
+\begin{problem}
+	Let $A \subset \RR$ be a subset with $\alpha = \sup A < \infty$. Prove that for every $\varepsilon > 0$, there exists an element $\beta \in A$ such that $\beta > \alpha - \varepsilon$. 
+\end{problem}
+
+\begin{proof}
+	For the sake of contradiction, suppose there exists $\varepsilon > 0$ such that all $\beta \in A$ satisfy $\beta \leq \alpha - \varepsilon$. But this contradicts the minimality of $\alpha$ since $\alpha - \varepsilon$ would be a strictly smaller upper bound. 
+\end{proof}
+
+\newpage 
+
+\subsection{Problem 1.17}
+
+\begin{problem}
+	In probability theory, there is a useful metric on the distributions of a fixed sample space called the \textbf{total variation distance}. In this problem, we explore a simple case of this distance. Consider the simplex
+        \[
+            \Delta_d := \{(x_1, ..., x_d) \in \RR^d : x_1 + ... + x_d = 1 \text{ and } x_1, ..., x_d \geq 0\}.
+        \]
+        We define the total variation distance between two vectors $x, y \in \Delta_d$ to be 
+        \[
+            d_{\mathsf{TV}} (x, y) = \frac{1}{2}  \sum_{k = 1}^d |x_k - y_k|.
+        \]
+        \begin{enumerate}[label = (\alph*)]
+            \item Prove that $d_{\mathsf{TV}}$ is a metric.
+            
+            \item Prove that 
+            \[
+                d_{\mathsf{TV}}(x, y) = \max_{A \subset [d]} \left | \sum_{n \in A} (x_n - y_n) \right | = \frac{1}{2}\sup \left \{ \sum_{k = 1}^d f_k (x_k - y_k) : \max_{i \in [d]} |f_i| \leq 1 \right \}
+            \] 
+        \end{enumerate}
+\end{problem}
+
+\begin{proof}
+	This problem has two parts. 
+	\begin{enumerate}[label = (\alph*)]
+		\item As the sum of absolute values, we have $d_{\mathsf{TV}}(x, y) \geq 0$. Moreover, $d_{\mathsf{TV}}(x, y) = 0 \iff x_k = y_k \iff x = y$. The triangle inequality follows from the triangle inequality on the absolute value. This proves that the total variation distance is a metric. 
+
+		\item Let $A_+$ be the indices $i$ such that $x_i - y_i \geq 0$ and $A_-$ the indices $i$ such that $x_i - y_i < 0$. Then 
+		\begin{align*}
+			\max_{A \subset [n]} \left | \sum_{n \in A} (x_n - y_n) \right | & = \sum_{n \in A_+} x_n - y_n \\
+			& = \frac{1}{2} \sum_{n = 1}^d |x_n - y_n| + \frac{1}{2} \sum_{n \in A_+} (x_n - y_n) + \frac{1}{2}\sum_{n \in A_-} (x_n - y_n) \\
+			& = d_{\mathsf{TV}}(x, y) + \frac{1}{2} \sum_{n = 1}^d (x_n - y_n) \\
+			& = d_{\mathsf{TV}}(x, y). 
+		\end{align*}
+		This proves the first equality. To prove the second equality, note that 
+		\begin{align*}
+			\frac{1}{2} \sup \left \{ \sum_{k = 1}^n f_k (x_k - y_k) : \max_{i \in [n]} |f_i| \leq 1 \right \} & = \frac{1}{2} \sum_{k = 1}^n \text{sgn}(x_k - y_k) \cdot (x_k - y_k) \\
+			& = \frac{1}{2} \sum_{k = 1}^n |x_k - y_k| = d_{\mathsf{TV}}(x, y). 
+		\end{align*}
+		This suffices for the proof. 
+	\end{enumerate}
+\end{proof}
+
+\newpage 
+
+\subsection{Problem 1.18}
+
+\begin{problem}
+	On $\RR^2$, define the \textbf{taxicab distance} as $d_T(x, y) = |x_1 - y_1| + |x_2 - y_2|$. Describe or draw the shape of open balls of the taxicab distance. A picture suffices for this problem. 
+\end{problem}
+
+\begin{proof}
+	The open balls of the taxicab distance are squares where the diagonals are oriented in the direction of the $x$ and $y$ axes. 
+\end{proof}
+
+\newpage 
+
+\subsection{Problem 1.19}
+
+\begin{problem}
+	Let $X = \RR^3$ and consider the subset $K = \{(x, y, z) \in \RR^3 : 0 \leq x, y \leq 1, z = 0 \}$. Let $P = \{(x, y, z) \in \RR^3 : z = 0\}.$ Please answer the following two questions. No proof of your answers are required. 
+        \begin{enumerate}[label = (\alph*)]
+            \item What are $\tint K$, $\partial K$, and $\clo K$?
+            \item What are $\tint_P K$, $\partial_P K$, and $\clo_P K$?
+        \end{enumerate}
+\end{problem}
+\begin{proof}
+	This problem has two parts. 
+	\begin{enumerate}[label = (\alph*)]
+		\item We have $\tint K = \emptyset, \partial K = K, \clo K = K$. 
+		\item We have 
+		\begin{align*}
+			\tint_P K & = \{(x, y, z) \in \RR^3 : 0 < x, y < 1, z = 0\} \\
+			\partial_P K & = (\{0, 1\} \times [0, 1] \cup [0, 1] \times \{0, 1\}) \times \{0\} \\
+			\clo_P K & = K. 
+		\end{align*}
+		This suffices for the proof. 
+	\end{enumerate}
+\end{proof}
+\newpage 
+
+\subsection{Problem 1.20}
+
+\begin{problem} \label{problem-1.20}
+	The following two problems involve the convergence of sequences. 
+        \begin{enumerate}[label = (\alph*)]
+            \item Prove that every convergent sequence has a unique point of convergence. That is, if $a_n \to x_1$ and $a_n \to x_2$ are two convergent sequences in a metric space $(X, d)$, then $x_1 = x_2$.
+            \item Let $(X, d)$ be a complete metric space. Let $f : X \to X$ be a map satisfying $d(f(x), f(y)) \leq c \cdot d(x, y)$ where $c \in (0, 1)$. Prove that there exists exactly one $x_{\mathsf{fix}} \in X$ with $f(x_{\mathsf{fix}}) = x_{\mathsf{fix}}$. 
+        \end{enumerate}
+\end{problem}
+
+\begin{proof}
+	This problem has three parts. 
+	\begin{enumerate}[label = (\alph*)]
+		\item Suppose $a_n \to x$ and $a_n \to y$. For the sake of contradiction, suppose that $d(x, y) > 0$. For large enough $N$, we have that for $n \geq N$ that $d(a_n, x) < d(x, y)/2$ and $d(b_n, y) < d(x, y)/2$. Adding the two inequalities and using triangle inequality we get $d(x, y) < d(x, y)$, a contradiction.
+
+		\item Fix $x \in X$. Consider the sequence $a_n := f^{(n)}(x)$. We have 
+		\[
+			d(a_n, a_{n+1}) \leq c d(a_{n-1}, a_n) \leq c^n d(a_0, a_1). 
+		\]
+		When $m > n > N$ we have that 
+		\[
+			d(a_m, a_n) \leq \sum_{k = n}^{m-1} d(a_{k+1}, a_k) \leq d(a_0, a_1) \sum_{k = n}^{m-1} c^k \leq \frac{d(a_0, a_1)}{1-c} \cdot c^N
+		\]
+		This proves that $a_n$ is a Cauchy-sequence. Hence there is $a \in X$ such that $a_n \to a$. We have
+		\begin{align*}
+			d(a, f(a)) & \leq d(a_n, a) + d(a_n, f(a_n)) + d(f(a_n), f(a)) \\
+			& \leq (1 + c)d(a_n, a) + d(a_n, a_{n+1}).
+		\end{align*}
+		Taking $n \to \infty$, we get $d(a, f(a)) = 0 \implies f(a) = a$. Thus a fixed point exists. To prove that this is unique, suppose we have $x_1, x_2$ as fixed points. Then 
+		\[
+			d(x_1, x_2) = d(f(x_1), f(x_2)) \leq c d(x_1, x_2) \implies d(x_1, x_2) \leq 0.
+		\]
+		Hence $x_1 = x_2$ which completes the proof. 
+	\end{enumerate}
+\end{proof}
+
+\newpage 
+
+\subsection{Problem 1.21}
+
+\begin{problem} \label{problem-1.21}
+	Let $(X, d)$ be a metric space.
+        \begin{enumerate}[label = (\alph*)]
+            \item Let $K \subset X$ be compact and $f : (X, d) \to (M, d_M)$ be a continuous map. Prove that $f(K)$ is a compact subset of $M$.
+            \item Suppose we have a sequence of non-empty compact subsets $K_n \subset X$ satisfying $K_n \supset K_{n+1}$ for all $n \geq 1$. Prove that $\bigcap_{n \geq 1} K_n$ is non-empty and compact. 
+            \item Let $\{x_n\} \subset \RR^n$ be a bounded sequence. Prove that there is a convergent subsequence.
+            \item Let $K \subset X$ be compact and $f : K \to \RR$ a continuous function. Prove that there exists $x_{\mathsf{min}}, x_{\mathsf{max}} \in K$ that satisfy
+            \begin{align*}
+                    f(x_{\mathsf{min}}) = \inf_{x \in K} f(x), \quad f(x_{\mathsf{max}}) = \sup_{x \in K} f(x). 
+            \end{align*}
+        \end{enumerate}   
+\end{problem}
+
+\begin{proof}
+	This problem has four parts. 
+	\begin{enumerate}[label = (\alph*)]
+		\item Let $f(K) \subset \bigcup_{\alpha \in I} U_\alpha$ be an open cover. Then $K \subset \bigcup_{\alpha \in I} f^{-1}(U_\alpha)$	is an open cover of $K$ from the continuity of $f$. Since $K$ is compact, there is a finite subcover $K \subset \bigcup_{i = 1}^m f^{-1}(U_i)$. Then $f(K) \subset \bigcup_{i = 1}^m U_i$ is a finite subcover of $f(K)$. Since the original open cover was arbitrary, this proves that $f(K)$ is compact. 
+
+		\item We first prove that if $C$ is a compact set, it is closed. Let $x \in X \backslash C$. For every $c \in C$, there are balls $B_c$ and $D_c$ such that $c \in B_c$, $x \in D_c$, and $B_c \cap D_c = \emptyset$. Then $C \subset \bigcup_{c \in C} B_c$ is an open cover. From the compactness of $C$, there is a finite subcover $C \subset \bigcup_{i = 1}^m B_i$. Then $\bigcap_{i = 1}^m D_i$ is an open set containing $x$ which is disjoint from $C$. This implies that the complement of $C$ is open, i.e., $C$ is closed. \\
+
+		Next, we prove that closed subsets of compact sets are compact. Indeed, let $K$ be compact and $C \subset K$ be a closed subset. For any open cover of $C$, add the set $C^c$ to the open cover. This is an open cover of $K$. Thus there is a finite subcover. Removing $C^c$ from the subcover gives a finite subcover of $C$, which proves that $C$ is compact. One consequence is that $\bigcap_{i = 1}^\infty K_i$ is compact. It suffices to prove that their intersection is non-empty. For the sake of contradiction, suppose that the intersection was empty. Then, taking complements, we have
+		\[
+			K_1^c \cup \bigcup_{i = 2}^\infty K_i^c = X \implies K_1 \subset \bigcup_{i = 2}^\infty K_i^c.
+		\]
+		Since $K_1$ is compact and the $K_i^c$ for $i \geq 2$ are open sets, there is a $N > 0$ such that $K_1 \subset \bigcup_{i = 2}^N K_i^c$. Taking complements again, we get the relation $K_1^c \supset \bigcap_{i = 2}^N K_i$. But this cannot be the case since $\bigcap_{i = 2}^N K_i \subset K_1$.
+
+
+		\item Let $\{x_n\} \subset \RR^n$ be a sequence. There exists a sufficiently large cube $Q_0$ which contains the sequence since it is bounded. Now split the cube $Q_0$ into equal smaller cubes of half the length. From the Pigeon-hole Principle, one of these cubes $Q_1$ has infinitely many elements from the sequence. Split the cube $Q_1$ to equal smaller cubes of half the length to get a cube $Q_2$ that also contains infinitely many elements from the Pigeon-hole principle. We can repeat this process to get $Q_1 \supset Q_2 \supset \ldots$. Since the diameters of the $Q_i$'s converge to $0$, their intersection contains exactly one element. Taking $x_{i_j} \in Q_j$ gives a subsequence that converges to this element. 
+
+		\item We prove the result for infimum only since the result for supremum is exactly the same proof. There exists a sequence $x_k \in K$ such that $f(x_k) \to \inf_{x \in K} f(x)$. From (c), there is a subsequence $x_{i_j}$ that converges to some $x_{\mathsf{min}} \in X$. From continuity, we get $f(x_{\mathsf{min}}) = \inf_{x \in K} f(x)$. This suffices for the proof. 
+	\end{enumerate}
+\end{proof}
+
+\newpage 
+
+\section{Convex Bodies}
+
+\subsection{Problem 2.1}
+
+\begin{problem}
+	If $K \in \mathsf{K}^n$, prove that $\dim K < n$ if and only if $\tint K = \emptyset$. 
+\end{problem}
+
+\begin{proof}
+	Suppose that $\dim K < n$. Then there is a hyperplane $H$ such that $K \subseteq H$. Taking interiors, we have $\tint K \subseteq \tint H = \emptyset$. Conversely, suppose that $\tint K = \emptyset$. For the sake of contradiction, suppose that $\dim K = n$. Then there are affinely independent $v_1, \ldots, v_{n+1} \in K$. But then 
+	\[
+		\emptyset \neq \tint \conv \{v_1, \ldots, v_{n+1}\} \subseteq \tint K
+	\]
+	which is a contradiction. 
+\end{proof}
+\newpage 
+
+\subsection{Problem 2.2}
+
+\begin{problem} \label{problem-2.2}
+	Let $K \subset \RR^n$ be a convex body. Let $x \in \rint K$ and $y \in K$ be arbitrary points. Prove that $(1- \lambda) x + \lambda y \in \rint K$ for all $\lambda \in [0, 1)$.
+\end{problem}
+
+\begin{proof}
+	By viewing $K$ as a subset of its affine span, we can assume without loss of generality that $\dim K = n$ and $x \in \tint K$. Let $\lambda \in [0, 1)$ and $z = \lambda y + (1-\lambda) x$. Since $x \in \tint K$, there is a $\varepsilon > 0$ such that for all $\alpha \leq \varepsilon$ and $u \in S^{n-1}$, we have $x + \alpha u \in K$. Then 
+	\[
+		z + u \alpha (1 - \lambda) = \lambda y + (1 - \lambda) (x + u \alpha) \in K
+	\]
+	for all $u \in S^{n-1}$ and $\alpha \leq \varepsilon$. Thus $z + (1-\lambda)\varepsilon B^n \subset K$. This suffices for the proof. 
+\end{proof}
+
+\newpage 
+
+\subsection{Problem 2.3}
+
+\begin{problem}
+	Let $K, L \in \mathsf{K}^n$ and let $a \in \RR$ be a real number. Prove that $a \cdot K$ and $K + L$ are both in $\mathsf{K}^n$.
+\end{problem}
+
+\begin{proof}
+	For $x, y \in L$ and $\lambda \in [0, 1]$, we have that 
+	\[
+		\lambda (ax) + (1 - \lambda) (ay) = a(\lambda x + (1-\lambda) y) \in a \cdot K. 
+	\]
+	Now suppose $x_1, x_2 \in K$, $y_1, y_2 \in L$, and $\lambda \in [0, 1]$. Then 
+	\[
+		\lambda(x_1 + y_1) + (1-\lambda) (x_2 + y_2) = (\lambda x_1 + (1 - \lambda) x_2) + (\lambda y_1 + (1 - \lambda) y_2) \in K + L. 
+	\]
+	This proves that $a \cdot K$ and $K + L$ are both convex. It suffices to prove that they are both compact. Consider the continuous maps $f : \RR^n \to \RR^n$ and $g : \RR^n \times \RR^n \to \RR^n$ defined by 
+	\begin{align*}
+		f(x) & := a \cdot x \\
+		g(x) & := x + y.
+	\end{align*}
+	Then $a \cdot K = f(K)$ and $K + L = g(K \times L)$. From Problem~\ref{problem-1.21}, both of these sets are compact. This suffices for the proof. 
+\end{proof}
+
+\newpage 
+
+\subsection{Problem 2.4}
+
+\begin{problem}
+	For $x \in \RR^n$ and a closed convex subset $K \subset \RR^n$, let 
+    \[
+        \dist(x, K) := \inf_{y \in K} \norm{x-y}
+    \]
+    be the distance of $x$ from $K$. Prove that there exists a unique $x^* \in K$ with $\norm{x-x^*} = \dist(x, K)$.
+\end{problem}
+
+\begin{proof}
+	Consider a closed ball around $x$ which intersects $K$. Note that $K' = K \cap B$ is compact and if the infimum were to be achieved, it would have to be in $K'$. Consider the map $f_x : K' \to \RR$ defined by $f_x(y) = \norm{x-y}$. From Problem~\ref{problem-1.21}, the infimum is achieved at some point. To prove this point is unique, suppose both $x_1, x_2$ achieve the infimum. Let $m = \dist(x, K)$. Then for any $\lambda \in [0, 1]$ in 
+	\[
+		\norm{x - (\lambda x_1 + (1 - \lambda)x_2)} \leq \lambda \norm{x - x_1} + (1 - \lambda) \norm{x - x_2} = \lambda m + (1 - \lambda) m = m. 
+	\]
+	Squaring the left hand side, we get 
+	\[
+		\norm{x - x_2}^2 - 2\lambda \langle x-x_2, x_1 - x_2 \rangle + \lambda^2 \norm{x_1 - x_2}^2.
+	\]
+	This is a quadratic that is constant over $\lambda \in [0, 1]$. Thus it must be constant for every $\lambda$. That implies that $\norm{x_1 - x_2}^2 = 0$, which suffices for the proof. 
+\end{proof}
+
+\newpage 
+
+\subsection{Problem 2.5}
+
+\begin{problem}
+	Let $K \subset \RR^n$ be a closed convex subset and $x, y \in \RR^n$ be arbitrary points. 
+    \begin{enumerate}[label = (\alph*)]
+        \item Prove that $\pi_K(x) = x$ if and only if $x \in K$. 
+        \item Prove that $y = \pi_K(x)$ if and only if $\langle x - y, z - y \rangle \leq 0$ for all $z \in K$. Geometrically, the condition on the right says that the angle between the segment $xy$ and $yz$ is obtuse for all $z \in K$.
+        \item Prove that $\pi_K(\cdot)$ is $1$-Lipschitz. That is, prove that for any $x, y \in \RR^n$, the following inequality holds:
+        \[
+            \norm{\pi_K(x) - \pi_K(y)} \leq \norm{x-y}. 
+        \]
+    \end{enumerate}
+\end{problem}
+
+\begin{proof}
+	This problem has three parts. 
+	\begin{enumerate}[label = (\alph*)]
+		\item If $\pi_K(x) = x$, then $x = \pi_K(x) \in K$. Now, suppose that $x \in K$. Then the minimum distance is achieved at $\pi_K(x) = x$. This completes the proof to (a). 
+
+		\item Let $z \in K$ and let $\lambda \in (0, 1)$. Then 
+		\[
+			\norm{\pi_K(x) - x} \leq \norm{\pi_K(x) + \lambda (z - \pi_K(x)) - x}.
+		\]
+		Squaring both sides, we get 
+		\[
+			2\lambda \langle \pi_K(x) - x, \pi_K(x) - z \rangle \leq \lambda^2 \langle z - \pi_K(x), z - \pi_K(x) \rangle. 
+		\]
+		Divide both sides by $2\lambda$ and take $\lambda \to 0^+$, we get that 
+		\[
+			\langle x - \pi_K(x), z - \pi_K(x) \rangle \leq 0. 
+		\]
+		Conversely, suppose that $x_*$ satisfies $\langle x - x_*, z - x_* \rangle \leq 0$ for all $z \in K$. Then 
+		\begin{align*}
+			0 & \geq \langle x- x_*, z - x_* \rangle \\
+			& = \norm{x - x_*}^2 - \langle x - x_*, x - z \rangle \\
+			& \geq \norm{x - x_*}^2 - \norm{x-x_*} \norm{x-z}.
+		\end{align*}
+		Thus $\norm{x - x_*} \leq \norm{x - z}$. Hence $x_* = \pi_K(x)$. This completes the proof to (b). 
+
+		\item From (b), we get that 
+		\begin{align*}
+			\langle x - \pi_K(x), \pi_K(y) - \pi_K(x) \rangle & \leq 0 \\
+			\langle y - \pi_K(y), \pi_K(x) - \pi_K(y) \rangle & \leq 0.
+		\end{align*}
+		Adding the two inequalities, we get 
+		\[
+			\norm{\pi_K(x) - \pi_K(y)}^2 \leq \langle x - y, \pi_K(x) - \pi_K(y) \rangle. 
+		\]
+		The inequality $\langle x - y, \pi_K(x) - \pi_K(y) \rangle \leq \norm{x-y} \norm{\pi_K(x) - \pi_K(y)}$ finishes the proof.  
+	\end{enumerate}
+\end{proof}
+
+\newpage 
+
+\subsection{Problem 2.6}
+
+\begin{problem}
+	In this problem, you will prove two separation results. 
+\begin{enumerate}[label = (\alph*)]
+    \item Let $K \subset \RR^n$ be closed and convex. Let $x \in \RR^n$ be an arbitrary point not contained in $K$. Prove that there is a hyperplane $H$ which strongly separates $x$ and $K$.
+    \item Let $C \subset \RR^n$ be a non-empty closed convex set. For each $x \in \partial C$, there is a hyperplane $H$ such that $C \subset H^-$ and $x \in C \cap H$. 
+\end{enumerate} 
+\end{problem}
+
+\begin{proof}
+	This problem has two parts. 
+	\begin{enumerate}[label = (\alph*)]
+		\item Since $x \notin K$, we have $x \neq \pi_K(x)$. Let $s := x - \pi_K(x) \neq 0$. For all $z \in K$, we have 
+		\[
+			0 \geq \langle x - \pi_K(x), z - \pi_K(x) \rangle = \langle s, z - x + s \rangle = \langle s, z - x \rangle + \norm{s}^2.
+		\]
+		Thus
+		\[
+			\langle x, s \rangle \geq \norm{s}^2 + \langle s, z \rangle \implies \langle x, s \rangle \geq \norm{s}^2 + \sup_{z \in K} \langle s, z \rangle.
+		\]
+		This suffices for the proof. 
+		\item There is a sequence $\{x_k\}_{k \geq 1} \subset \RR^n \backslash C$ such that $x_k \to x$. From (a), there exist $u_k \in S^{n-1}$ and $\alpha_k \in \RR$ such that $H_{u_k, \alpha_k}$ separate $x_k$ and $C$. Since $S^{n-1}$ is compact, there is a subsequence $u_{i_k}$ that converges to $u_{i_k} \to u_* \in S^{n-1}$. Then for all $z \in C$
+		\[
+			\langle u_{i_k}, x_{i_k} - z \rangle \geq 0
+		\]
+		for all $k$. Taking the limit $k \to 0$, we get 
+		\[
+			\langle u_*, x - z \rangle \geq 0 \implies \langle u_*, x \rangle \geq \sup_{z \in C} \langle u_*, z \rangle.
+		\]
+		This suffices for the proof. 
+	\end{enumerate}
+\end{proof}
+
+\newpage 
+
+\subsection{Problem 2.7}
+
+\begin{problem}
+	Let $K \in \mathsf{K}^n$ body and $u \in S^{n-1}$.
+    \begin{enumerate}[label = (\alph*)]
+        \item Show that there exists $x \in K$ such that $\langle x, u \rangle = h_K(u)$. 
+        \item Prove that $H = \{x \in \RR^n : \langle x, u \rangle = h_K(u)\}$ is a supporting hyperplane of $K$.
+        \item If $K, L$ are convex bodies and $a > 0$, then $h_{aL + K} (u) = a h_L(u) + h_K(u)$ for all $u \in S^{n-1}$.
+    \end{enumerate}
+\end{problem}
+
+\begin{proof}
+	This problem has three parts. 
+	\begin{enumerate}[label = (\alph*)]
+		\item Consider the map $ f_u: K \to \RR$ defined by $f_u(x) = \langle x, u \rangle$. This is a continuous map on a compact set. Hence, it achieves its maximum. 
+
+		\item Note that $H \cap K \neq \emptyset$ from (a). It suffices to prove that $K \subset \{x \in \RR^n : \langle x, u \rangle \leq h_K(u)\}$. But this follows from the definition of $h_K(u)$. 
+
+		\item We have 
+		\begin{align*}
+			h_{aL+K}(u) & = \sup_{x, y \in L, K} \langle ax + y, u \rangle \\
+			&  = \sup_{x, y \in L, K} a \langle x, u \rangle + \langle y, u \rangle \\
+			& =  a \cdot \sup_{x \in L} \langle x, u \rangle + \sup_{y \in K} \langle y, u \rangle \\
+			& = a h_L(u) + h_K(u). 
+		\end{align*}
+		This suffices for the proof. 
+	\end{enumerate}
+\end{proof}
+
+\newpage 
+
+\subsection{Problem 2.8}
+
+\begin{problem}
+	Let $S \subset \RR^n$ be an arbitrary subset of vectors. Let $x \in \conv S$. Prove that $x$ can be written as a convex combination of at most $n+1$ elements in $S$. 
+\end{problem}
+
+\begin{proof}
+	Let $k$ be minimal so that there is $\lambda_i > 0, x_i \in S$ for $1 \leq i \leq k$ and $\sum_{i = 1}^k \lambda_i = 1$ such that 
+		\[
+			x = \sum_{i = 1}^k \lambda_i x_i.
+		\]
+		If $k \leq n+1$, we are done. Otherwise, $k \geq n+2$ and there is an affine combination that is equal to $0$:
+		\[
+			\sum_{i = 1}^k \mu_i x_i = 0, \quad \sum_{i = 1}^k \mu_i = 0.
+		\]
+		Pick the index $m$ for which $\lambda_m / \alpha_m > 0$ and minimizes $\lambda_m / \alpha_m$ under this constraint. Such an index exists because at least one of the $\alpha_i$ is positive. Then 
+		\[
+			x = \sum_{i = 1}^k \left ( \lambda_i - \frac{\lambda_m}{\alpha_m} \alpha_i \right ) x_i.
+		\]
+		Note that for $i = m$, the coefficient is $0$. For all other indices, the coefficients are non-negative by construction. This contradicts the minimality, and completes the proof. 
+\end{proof}
+
+\newpage 
+
+\subsection{Problem 2.9}
+
+\begin{problem} \label{problem-2.9}
+	Let $K$ be a convex body with $0 \in \tint K$. 
+    \begin{enumerate}[label = (\alph*)]
+        \item Prove that $K^\circ$ is a convex body with $0 \in \tint K^\circ$. 
+        \item Prove that $K = K^{\circ \circ}$. 
+    \end{enumerate}
+    In other words, $\cdot^{\circ}$ is a notion of duality on the convex bodies containing $0$ in their interior.
+\end{problem}
+\begin{proof}
+	This problem has two parts. 
+	\begin{enumerate}[label = (\alph*)]
+		\item The polar $K^\circ$ is convex and closed since it is the intersection of closed half-spaces. Since $0 \in \tint K$ and $K$ is compact, there are $\varepsilon > 0$ and $N > 0$ such that 
+		\[
+			B(0, \varepsilon) \subseteq K \subseteq B(0, N).
+		\]
+		Taking polars, we get that $B(0, N^{-1}) \subseteq K^\circ \subseteq B(0, \varepsilon^{-1})$. Thus, $K^\circ$ is bounded and contains $0$ in its interior. This proves (a). 
+		\item We first prove that $K \subset K^{\circ \circ}$. Let $x \in K$. Then for all $y \in K^\circ$, we have by definition $\langle x, y \rangle \leq 1$. Hence $x \in K^{\circ \circ}$. This proves the first inclusion. To prove the second inclusion, let $x \in K^{\circ \circ}$ be an arbitrary element. Suppose that $x \notin K$. Then, we can separate $x$ and $K$ by a hyperplane. This implies there exists $u \in S^{n-1}$ and $\alpha$ such that $\langle x, u \rangle > \alpha$ and $\sup_{y \in K} \langle y, u \rangle < \alpha$. Equivalently, we have $u / \alpha \in K^\circ$. But since $x \in K^{\circ \circ}$ we have 
+		\[
+			\langle x, u / \alpha \rangle \leq 1 \implies \langle x , u \rangle \leq \alpha
+		\] 
+		which is a contradiction. This suffices for the proof. 
+	\end{enumerate}
+\end{proof}
+
+\newpage 
+
+\subsection{Problem 2.10}
+
+\begin{problem}
+	Let $K \subset \RR^n$ be bounded. In this problem you will prove that $K$ is a polyhedron if and only if it is a polytope. 
+    \begin{enumerate}[label = (\alph*)]
+        \item Suppose that $K = \bigcap_{i = 1}^m H_{n_i, \alpha_i}^-$ is a polyhedron where $H_{n_i, \alpha_i}^- = \{x \in \RR^n : \langle x, n_i \rangle \leq \alpha_i\}$. For $x \in K$, define $\mathsf{ind}(x) = \{i \in [m] : \langle x, n_i \rangle = \alpha_i\}$ to be the indices of the hyperplanes that contain $x$. Prove that if $x \in v(K)$ then $\lin_{i \in \mathsf{ind}(x)} \{n_i\} = \RR^n$. 
+        
+        \item Prove that the number of vertices is finite and conclude that bounded polyhedra are polytopes. 
+        
+        \item Suppose that $K = \conv \{x_1, ..., x_m\} \subset \RR^n$ is a polytope. Prove that
+        \[
+            K^\circ = \{x \in \RR^n : \langle x, x_j \rangle \leq 1 \text{ for } 1 \leq j \leq m\}.
+        \]
+        Conclude that polytopes are polyhedra.
+    \end{enumerate}
+\end{problem}
+
+\begin{proof}
+	This problem has three parts. 
+    	\begin{enumerate}[label = (\alph*)]
+    		\item Suppose that $x \in v(K)$. For the sake of contradiction, suppose that $\lin_{i \in \mathsf{ind}(x)} \{n_i\} \neq \RR^n$. Then there is some non-zero vector $u \in \RR^n$ such that $\langle u, n_i \rangle = 0$ for all $i \in \mathsf{ind}(x)$. We have that 
+    		\begin{align*}
+    			\langle x \pm \varepsilon y, n_i \rangle & = \langle x, n_i \rangle = \alpha_i \text{ when } i \in \mathsf{ind}(x) \\
+    			\langle x \pm \varepsilon y, n_i \rangle & = \langle x, n_i \rangle \pm \varepsilon \langle y, n_i \rangle < \alpha_i \text{ when } i \not\in \mathsf{ind}(x)
+    		\end{align*}
+    		for sufficiently small $\varepsilon > 0$. Thus $x \pm \varepsilon y \in K$ but their average is $x$. This contradicts $x \in v(K)$. 
+
+    		\item Let $x \in v(K)$. Then $x$ is a solution to $\langle x, n_i \rangle = \alpha_i$ for $i \in \mathsf{ind}(x)$. Since the corresponding $n_i$'s span $\RR^n$, Problem~\ref{problem-1.9} proves that $x$ is unique point that satisfy its specific hyperplane constraints. Thus, there will be at most $2^m$ possible vertices, implying that it is finite. Since a convex body is the convex hull of its vertices, we know that $K$ is the convex hull of a finite number of elements, proving that it is a polytope. 
+
+    		\item Suppose $x \in K^\circ$. Then we have that $\langle x, x_i \rangle \leq 1$ for all $i$. Hence $x$ is an element of the right hand side. Now let $x$ be an arbitrary element on the right hand side. Then 
+    		\[
+    			\left \langle x, \sum_{i = 1}^m \lambda_i x_i \right \rangle = \sum_{i = 1}^m \lambda_i \langle x, x_i \rangle \leq \sum_{i = 1}^m \lambda_i = 1. 
+    		\]
+    		This proves that the two sets are equal. To finish the proof, we can consider $K$ as a subset of its affine span so that $\tint K \neq \emptyset$. After a suitable translation, we can also suppose that $0 \in \tint K$. Then from our formula, we have $K^\circ$ is a bounded polyhedron. Hence $K^\circ$ is a polytope from (b). By the same reasoning $K^{\circ \circ}$ is a bounded polyhedron. But $K^{\circ \circ} = K$ from Problem~\ref{problem-2.9}. This suffices for the proof. 
+    	\end{enumerate}
+\end{proof}
+
+\newpage 
+
+\subsection{Problem 2.11}
+
+\begin{problem}
+	Let $\mathcal{F}$ be the collection of all of the features of $K$. Prove that 
+    \[
+        K = \bigsqcup_{F \in \mathcal{F}} \rint (F).
+    \]
+    where the union is disjoint. 
+\end{problem}
+
+\begin{proof}
+	We prove the following two facts:
+	\begin{enumerate}[label = (\roman*)]
+		\item If $F_1, F_2$ are distinct features, then $\rint (F_1) \cap \rint (F_2) = \emptyset$
+		\item Each point $x \in K$ belongs to the relative interior of a unique feature of $K$. 
+	\end{enumerate} 	
+	Note that (ii) will complete the proof. To prove (i), suppose for the sake of contradiction that there is some $x \in \rint F_1 \cap \rint F_2$. Without loss of generality, suppose there exists $y \in F_1 \backslash F_2$. Then there exists some point $z \in F_2$ such that $x = \lambda y + (1 - \lambda)z $ for some $\lambda \in (0, 1)$ from Problem~\ref{problem-2.2}. But this implies that $y, z \in F_2$ from the definition of the feature. But this contradicts $y \notin F_2$. Hence the relative interiors of distinct features are disjoint. \\
+
+	(i) implies that any point can only be in the relative interior in at most one feature. Now suppose there is a point $x \in K$ which does not belong to the relative interior of any feature. Let $F_x$ be the smallest feature containing $x$. Then $x \in \rbd F_x$ by our assumption. Then there is some supporting hyperplane $H$ where $x \in F_x \cap H$ and $F_x \cap H$ is a proper face of $F_x$, hence a feature of $F_x$. Being a feature is clearly transitive, so $F_x \cap H$ is a feature of $K$ that contains $x$. But this contradicts the minimality of $F_x$. This sufifces for the proof. 
+\end{proof}
+
+\newpage 
+
+\subsection{Problem 2.12}
+
+\begin{problem} \label{problem-2.12}
+	Let $K$ be a convex body with non-empty interior $\tint K = \mcO \subset \RR^2$. The set $\mathcal{O}$, by definition, is open. Prove that there exists a sequence set of closed cells $R_1, R_2, \ldots$ such that 
+    \[
+        \mathcal{O} = \bigcup_{n \geq 1} R_n
+    \]
+    where $R_n \cap R_m \subset \partial R_n \cap \partial R_m$ for all $m \neq n$ and for any $\varepsilon > 0$, there is a large enough $N > 0$ such that 
+    \[
+        \varepsilon B^2 + \bigcup_{n = 1}^N R_n \supset K.
+    \]
+    A closed cell in $\RR^2$ is a set of the form $[a, b] \times [c, d]$ where $a \leq b$ and $c \leq d$.
+\end{problem}
+
+\begin{proof}
+	Consider the infinite grid of squares where the vertices are at lattice points. Let $L_1$ be the collection of these squares that are completely contained in $\mathcal{O}$ and let $R_1$ be the collection of these squares that touch $\mathcal{O}$ but is not completely contained in $\mathcal{O}$. In $R_1$, divide each of the squares into four equal squares. Let $L_2$ be the collection of divided squares from $R_1$ that are completely contained in $\mathcal{O}$ and let $R_2$ be the squares which touch $\mathcal{O}$ but are not completely contained. Now, repeat this process to have collections $L_1, L_2, \ldots$ of squares that are contained in $\mathcal{O}$. Note that 
+	\[
+		\bigcup_{U \in \bigcup_{i \geq 1} L_i} U = \mathcal{O}
+	\]
+	because for every point in $x \in \mathcal{O}$ there is a sequence of squares $Q_1 \supset Q_2 \supset \ldots \supset Q_m$ where $Q_i \in R_i$ for all $1 \leq i \leq m-1$ and $Q_m \in L_m$. Moreover, since the diameters of the squares become exponentially smaller, for large enough $N$ we have that 
+	\[
+		\bigcup_{U \in \bigcup_{i \leq N} L_i} U + \varepsilon B^n \supset K.
+	\]
+	This suffices for the proof.
+\end{proof}
+
+\newpage 
+
+\subsection{Problem 2.13}
+\begin{problem} \label{problem-2.13}
+	In this problem, you will compute some volumes. 
+    \begin{enumerate}[label = (\alph*)]
+        \item Find the value of the volume of the tetrahedron
+        \[
+            \Vol_n \left ( \left \{ (x_1, \ldots, x_n) \in \RR^n : 0 \leq x_1 \leq \ldots \leq x_n \leq 1 \right \} \right ).    
+        \]
+        \item Find the value of the volume of the unit $\norm{\cdot}_1$ ball
+        \[
+            \Vol_n \left ( \left \{ x \in \RR^n : \norm{x}_1 = \sum_{k = 1}^n |x_k| \leq 1 \right \} \right ).
+        \]
+        
+        \item Given $m$ vectors $\mathcal{V} := \{v_1, \ldots, v_m \} \subset \RR^n$, define the \textbf{zonotope}
+        \[
+            Z(\mathcal{V}) := \left \{ \sum_{i = 1}^m \lambda_i v_i : \lambda_i \in [0, 1] \text{ for all } 1 \leq i \leq m \right \}.
+        \]
+        Let $\mathcal{B} = \{v_1, \ldots, v_n\}$ be $n$ vectors in $\RR^n$. Prove that 
+        \[
+            \Vol_n(Z(\mathcal{B})) = | D(v_1, \ldots, v_n) |.
+        \]
+    \end{enumerate}
+\end{problem}
+
+\begin{proof}
+	This problem has four parts.
+    	\begin{enumerate}[label = (\alph*)]
+    		\item For $\sigma \in S_n$, define
+    		\[
+    			\Delta_\sigma := \{x \in \RR^n : 0 \leq x_{\sigma(1)} \leq \ldots \leq x_{\sigma(n)} \leq 1\}.
+    		\]
+    		The $\Delta_\sigma$ are the same up to a permutation linear transformation. Thus their volumes are the same. Moreover, we have that 
+    		\[
+    			[0, 1]^n = \bigcup_{\sigma \in S_n} \Delta_\sigma
+    		\]
+    		where the union is almost disjoint. This implies that 
+    		\[
+    			n! \Vol(\Delta) = 1 \implies \Vol_n(\Delta) = \frac{1}{n!}. 
+    		\] 
+    		\item We have that 
+    		\[
+    			\Vol_n \left ( \left \{ x \in \RR^n : \norm{x}_1 = \sum_{k = 1}^n |x_k| \leq 1 \right \} \right ) = 2^n \Vol_n \left \{ x \in [0, \infty]^n : 0 \leq \sum_{i = 1}^n x_i \leq 1\right \}.
+    		\]
+    		Let $M$ be the $n \times n$ matrix $[M_{ij}]$ where $M_{ij} = \1_{i \geq j}$. Then 
+    		\begin{align*}
+    			\Vol_n \left \{ x \in [0, \infty]^n : 0 \leq \sum_{i = 1}^n x_i \leq 1\right \} & = \Vol_n \left \{t \in [0, 1]^n : 0 \leq t_1 \leq \ldots \leq t_{n-1} \leq t_n \leq 1 \right \} \\
+    			& = \frac{1}{n!}	
+    		\end{align*}
+    		from (a). Thus the volume is $\frac{2^n}{n!}$.
+
+    		\item Let $T : \RR^n \to \RR^n$ be the map defined by $Te_i = v_i$ for all $1 \leq i \leq n$. Then $T[0, 1]^n = Z(\mathcal{B})$. Hence, we have that 
+    		\[
+    			\Vol_n(Z(\mathcal{B})) = \Vol_n(T[0, 1]^n) = |\det T| = |D(v_1, \ldots, v_n)|.
+    		\]
+    		This completes the proof of (c). 
+    	\end{enumerate}
+\end{proof}
+
+\newpage 
+
+\subsection{Problem 2.14}
+
+\begin{problem}
+	Let $K \subset \mathsf{P}^n$ with $\dim K = n$. Let $F_1, \ldots, F_N$ be the facets of $K$ with unit normals $u_1, \ldots, u_N$.
+    \begin{enumerate}[label = (\alph*)]
+        \item Prove that 
+        \[
+            \sum_{i = 1}^N \Vol_{n-1}(F_i) \cdot \langle u_i, z \rangle = 0
+        \]
+        for all $z \in \RR^n$. 
+
+        \item Prove that 
+        \[
+            \Vol_n(K) = \sum_{i = 1}^N \frac{1}{n} \cdot \Vol_{n-1}(F_i) \cdot h_K(u_i)
+        \]
+    \end{enumerate}
+\end{problem}
+
+\begin{proof}
+	This problem has two parts. 
+	\begin{enumerate}[label = (\alph*)]
+		\item Let $z \in S^{n-1}$ be a unit vector. The projection of $F_i$ onto $z^\perp$ has $n-1$ dimensional volume $|\langle u_i, z \rangle | \cdot \Vol_{n-1}(F_i)$. Indeed, the two hyperplanes intersect in a space of dimension $n-2$, and so we simply have a map projecting the normal vectors on each other. This changes the volume by a single factor of $|\langle u_i, z \rangle|$ from Proposition 2.5.1. Hence, whenever $\langle u_i, z \rangle > 0$, we have that 
+		\[
+			\sum_{u_i : \langle u_i, z \rangle > 0} \Vol_{n-1}(F_i) \langle u_i, z \rangle = \Vol_{n-1}(P|_{v^\perp}).
+		\]
+		Similarly, when $\langle u_i, z \rangle < 0$ we have that 
+		\[
+			\sum_{u_i : \langle u_i, z \rangle < 0} \Vol_{n-1}(F_i) \langle u_i, z \rangle = - \Vol_{n-1}(P|_{v^\perp}). 
+		\]
+		This completes the proof to (a). 
+
+		\item The formula follows immediately if $0 \in \tint K$ from the pyramidal formula. Now, suppose $0 \notin \tint K$. Then, there is a $t \in \RR^n$ such that $0 \in \tint (K+t)$. Then we have 
+		\begin{align*}
+			\Vol_n(K) = \Vol_n(K+t) & = \sum_{i = 1}^N \frac{1}{n} \Vol_{n-1}(F_i + t) \cdot h_{K+t}(u_i) \\
+			& = \sum_{i = 1}^N \frac{1}{n} \Vol_{n-1}(F_i) \cdot h_K(u_i) + \frac{1}{n} \sum_{i = 1}^N \Vol_{n-1}(F_i) \cdot \langle t, u_i \rangle \\
+			& = \sum_{i = 1}^N \frac{1}{n} \Vol_{n-1}(F_i) \cdot h_K(u_i).
+		\end{align*}
+		This suffices for the proof. 
+	\end{enumerate}
+\end{proof}
+
+\newpage 
+
+\subsection{Problem 2.15}
+
+\begin{problem}
+	Let $K$ and $L$ be compact subsets of $\RR^n$. 
+    \begin{enumerate}[label = (\alph*)]
+        \item Prove that if $\varepsilon = \delta(K, L)$, then $K \subset L + \varepsilon B^n$ and $L \subset K + \varepsilon B^n$.  
+
+        \item Prove that $\delta$ is a metric on $\mathsf{C}^n$. 
+    \end{enumerate}
+\end{problem}
+
+\begin{proof}
+	This problem has two parts. 
+	\begin{enumerate}[label = (\alph*)]
+		\item For all $n > 0$ we know that 
+		\begin{align*}
+			K & \subset L + \left ( \varepsilon + \frac{1}{n} \right) B^n \\
+			L & \subset K + \left ( \varepsilon + \frac{1}{n} \right) B^n.
+		\end{align*}
+		This implies that 
+		\begin{align*}
+			 K & \subset \bigcap_{n = 1}^\infty \left \{ L + \left ( \varepsilon + \frac{1}{n} \right )B^n \right \} \\
+			 L & \subset \bigcap_{n = 1}^\infty \left \{ K + \left ( \varepsilon + \frac{1}{n} \right )B^n \right \}.
+		\end{align*}
+		The sets on the right hand sides are intersections of decreasing compact sets, hence they are compact. It suffices to prove that for all compact sets $M$, we have 
+		\begin{align*}
+			\bigcap_{n = 1}^\infty \left \{ M + \left ( \varepsilon + \frac{1}{n} \right )B^n \right \} & = M + \varepsilon B^n.
+		\end{align*}
+		The right hand side is clearly contained in the left hand side. Let $x \in \mathsf{LHS}$ be an arbitrary element. Then $\dist_M(x) \leq \varepsilon + 1/n$ for all $n$. This implies that $\dist_M(x) \leq \varepsilon$. From compactness, there exists $\pi_M(x) \in M$ such that $\norm{x - \pi_M(x)} \leq \varepsilon$. Thus, $x \in M + \varepsilon B^n$ which suffices for the proof. 
+
+		\item Since $K \subset K$, we have $\delta(K, K) = 0$. The definition is symmetric in its arguments so $\delta(K, L) = \delta(L, K)$. Now suppose $\delta(K, L) = 0$. From (a), we have $K \subset L $ and $L \subset K$. This gives $K = L$. Suppose $\delta (K, L) = \varepsilon_1$ and $\delta(L, P) = \varepsilon_2$. Then 
+		\[
+			K \subset L + \varepsilon_1 B^n \subset P + (\varepsilon_1 + \varepsilon_2) B^n
+		\]
+		and similarly for $P$. Thus $\delta(K, P) \leq \varepsilon_1 + \varepsilon_2 = \delta(K, L) + \delta(L, P)$. This suffices for the proof. 
+	\end{enumerate}
+\end{proof}
+
+\newpage 
+
+\subsection{Problem 2.16}
+
+\begin{problem} \label{problem-2.16}
+	Let $C \in \mathsf{K}^n$ be a convex body. For any $\varepsilon > 0$, there exists a polytope $C_\varepsilon \in \mathsf{P}^n$ such that $\delta (C, C_\epsilon) < \epsilon$.
+\end{problem}
+
+\begin{proof}
+	Consider the open cover $C \subset \bigcup_{c \in C} \{c\} + \varepsilon B^n$. Since $C$ is compact, there is a finite subcover $C \subset \bigcup_{i = 1}^N \{c_i\} + \varepsilon B^n \subset \conv \{c_1, \ldots, c_N\} + \varepsilon B^n$. Let $C_\varepsilon := \conv \{c_1, \ldots, c_N\}$. Then $C_\varepsilon \subset C \subset C_\varepsilon + \varepsilon B^n$ which suffices for the proof.
+\end{proof}
+
+\newpage 
+
+\subsection{Problem 2.17}
+
+\begin{problem}
+	Prove that the metric space $(\mathsf{C}^n, \delta)$ is complete.
+\end{problem}
+
+\begin{proof}
+	Let $(K_n)_{n \geq 1}$ be a Cauchy-sequence in $(\mathsf{C}^n, \delta)$. Define
+	\[
+		K := \bigcap_{k \geq 1} \clo \left ( \bigcup_{i \geq k} K_i \right ).
+	\]
+	Since $K_n$ is Cauchy, for a fixed $\varepsilon > 0$ there is sufficiently large $N$ such that $\delta(K_m, K_N) < \varepsilon$ for all $m \geq N$. This implies that 
+	\[
+		K_m \subset K_N + \varepsilon B^n =: K_N'.
+	\]
+	for all $m \geq N$. Thus, 
+	\[	
+		\clo \left ( \bigcup_{i \geq k} K_i \right ) \subset K_N'.
+	\]
+	Hence $\clo \left ( \bigcup_{i \geq k} K_i \right )$ are compact and decreasing. This implies that $K$ is compact and non-empty. It suffices to prove that $K_n \to K$ in $\delta$. For $\varepsilon > 0$, let $N$ be sufficiently large such that for all $s, t \geq N$ we have 
+	\[
+		\delta(K_s, K_t) < \varepsilon/2. 
+	\]
+	From our construction of $K$, we have for all $m \geq N$ that 
+	\[
+		K \subset \clo \left ( \bigcup_{i \geq N} K_i \right ) \subset K_N + \frac{\varepsilon}{2} B^n \subset \left ( K_m + \frac{\varepsilon}{2} \right ) + \frac{\varepsilon}{2} B^n = K_m + \varepsilon B^n.
+	\]
+	It suffices to prove that $K_m \subset K + \varepsilon B^n$. Equivalently, for any $a_m \in K_m$, we want to prove that there exists some $x \in K$ such that $\norm{a_m - x} < \varepsilon$. Since $\delta(K_m, K_l) < \varepsilon / 2$ for all $l > m$, there exist $a_l \in K_l$ such that $\norm{a_m - a_l} < \varepsilon / 2$. Since $a_l \in K_N + \frac{\varepsilon}{2} B^n$ for all $l \geq m$, there is a convergence subsequence $a_{i_k}$. For any fixed $h$, we have that 
+	\[
+		a_{i_k} \in \bigcup_{j \geq h} K_j
+	\]
+	for sufficiently large $k$. Hence, for all $h$, we have that 
+	\[
+		a \in \clo \left ( \bigcup_{j \geq h} K_j \right ) \implies a \in \bigcap_{h \geq 1} \clo \left ( \bigcup_{j \geq h} K_j \right ) = K. 
+	\]
+	Then for sufficiently large $k$, we have that $\norm{a - a_m} \leq \norm{a - a_{i_k}} + \norm{a_{i_k} - a_m} < \varepsilon$. This proves that $K_m \subset K + \varepsilon B^n$ and $\delta (K_m, K) < \varepsilon$ for all $m \geq N$. This suffices for the proof.
+\end{proof}
+\newpage 
+
+\subsection{Problem 2.18}
+
+\begin{problem} \label{problem-2.18}
+	Let $C \subset \RR^n$ be a closed set. Let $f_1, \ldots, f_m : C \to C$ be maps such that $|f_i(x) - f_i(y)| \leq c_i |x-y|$ where $c_i \in (0, 1)$ for all $1 \leq i \leq m$ and $x, y \in C$. 
+    \begin{enumerate}[label = (\alph*)]
+        \item Prove that there is a unique non-empty compact set $K \subset \RR^n$ such that $K = f_1(K) \cup \ldots \cup f_m(K)$. 
+        \item Let $K$ be the compact set from (a). Prove that if $E \subset C$ is a compact subset satisfying $f_i(E) \subset E$ for all $1 \leq i \leq m$, then 
+        \[
+            K = \bigcap_{i \geq 0} \left \{ \bigcup_{j_1, \ldots, j_i \in [m]} (f_{j_1} \circ \ldots \circ f_{j_i})(E) \right \}.
+        \]
+    \end{enumerate}
+\end{problem}
+
+\begin{proof}
+	This problem has two parts. 
+	\begin{enumerate}[label = (\alph*)]
+		\item Let $\mathcal{C}$ be the collection of compact non-empty subsets of $C$. Define the map $f : \mathcal{C} \to \mathcal{C}$ by 
+		\[
+			f(K) = \bigcup_{i = 1}^m f_i(K).
+		\]
+		This map is a well-defined because the images of compact sets are compact and finite unions of compact sets are also compact. For $A, B \in \mathcal{C}$, we have that
+		\begin{align*}
+			\delta(f(A), f(B)) & = \delta \left ( \bigcup_{i = 1}^m f_i(A) , \bigcup_{i = 1}^m f_i(B) \right ) \\
+			& \leq \max_{1 \leq i \leq m} \delta(f_i(A), f_i(B)) \\
+			& \leq \delta(A, B) \cdot \max_{1 \leq i \leq m} c_i \\
+			& \leq (1 - \varepsilon) \delta(A, B)
+		\end{align*}
+		for a universal sufficiently small $\varepsilon > 0$. From Problem (???), $(\mathcal{C}, \delta)$ is a compact metric space. Hence Problem~\ref{problem-1.20} implies that there is a unique non-empty compact set $K \subset C$ with $K = f_1(K) \cup \ldots \cup f_m(K)$. 
+
+		\item From the proof of Problem~\ref{problem-1.20} we have that $\delta(f^k(E), K) \to 0$ as $K \to 0$ for any $E \in \mathcal{C}$. When $f(E) \subset E$, we have that $f^k(E)$ is a decreasing sequence, hence 
+		\[
+			K = \bigcap_{i \geq 0} f^i(E).
+		\]
+		This suffices for the proof. 
+	\end{enumerate}
+\end{proof}
+
+\newpage 
+
+\section{Introduction to Mixed Volumes}
+\subsection{Problem 3.1}
+
+\begin{problem}
+	 Let $P_1, \ldots, P_m \in \mathsf{P}^n$ be polytopes in $\RR^n$. Let $P = P_1 + \ldots + P_m$ and $P_\lambda = \lambda_1 P_1 + \ldots + \lambda_m P_m$. Prove that $\dim F_P(u) = \dim F_{P_\lambda}(u)$ whenever $\lambda_1, \ldots, \lambda_m > 0$. In particular, as long as $\lambda_1, \ldots, \lambda_m > 0$, the facet unit normals will remain the same.
+\end{problem}
+
+\begin{proof}
+	The equality $\dim F_P(u) = \dim F_{P_\lambda}(u)$ is equivalent to the equality
+	\[
+		\dim \left ( \sum_{i = 1}^m F_{P_i}(u) \right ) = \dim \left ( \sum_{i = 1}^m \lambda_i F_{P_i}(u) \right ). 
+	\]
+	Thus, we prove the more general result that if $S_1, \ldots, S_m \subset \RR^n$ are non-empty subsets of $\RR^n$ and $\lambda_1, \ldots, \lambda_m > 0$ are positive constants, then 
+	\[
+		\dim \left ( \sum_{i = 1}^m S_i \right ) = \dim \left ( \sum_{i = 1}^m \lambda_i S_i \right ).
+	\]
+	By an easy induction argument, it suffices to prove that if $S_1, S_2 \subset \RR^n$ are non-empty and $\lambda > 0$ is a positive real number, then $\dim (S_1 + S_2) = \dim (S_1 + \lambda S_2)$. To prove this, fix $s_1 \in S_1$ and $s_2 \in S_2$. If we show that $\aff (S_1 + S_2) - (s_1 + s_2) \subset \aff (S_1 + \lambda S_2) - (s_1 + \lambda s_2)$, we would be done by symmetry. An arbitrary element in $\aff (S_1 + S_2) - (s_1 + s_2)$ can be written in the form 
+	\[
+		\sum_{i = 1}^u \lambda_i (v_i^{(1)} + v_i^{(2)}) - (s_1 + s_2) \in \aff (S_1 + S_2) - (s_1 + s_2)
+	\]
+	where $\sum \lambda_i = 1$, $v_i^{(1)} \in S_1$, and $v_i^{(2)} \in S_2$ for all $1 \leq i \leq m$. This vector can be re-written as 
+	\[
+		\sum_{i = 1}^u \lambda_i (v_i^{(1)} + v_i^{(2)}) - (s_1 + s_2) = \sum_{i = 1}^u \frac{\lambda_i}{\lambda} (v_i^{(1)} + \lambda v_i^{(2)}) + \lambda_i \left ( 1- \frac{1}{\lambda} \right ) (v_i + \lambda s_2) - (s_1 + \lambda s_2).
+	\] 
+	This vector is clearly in $\aff (S_1 + \lambda S_2) - (s_1 + \lambda s_2)$ and completes the proof.
+\end{proof}
+
+\newpage 
+
+\subsection{Problem 3.2}
+
+\begin{problem} \label{problem-3.2}
+	Prove that for polytopes $P_1, \ldots, P_m \in \mathsf{P}^n$ and non-negative scalars $\lambda_1, \ldots, \lambda_m \geq 0$ that the following identity holds:
+    \[
+        \Vol_n(\lambda_1 P_1 + \ldots + \lambda_m P_m) = \sum_{i_1, \ldots, i_n = 1}^m V(P_{i_1}, \ldots, P_{i_n}) \cdot \lambda_{i_1} \ldots \lambda_{i_n}.
+    \]   
+\end{problem}
+
+\begin{proof}
+	We induct on $n$. When $n = 1$, our polytopes will be in the form $P_i = [a_i, b_i]$ where $a_i \leq b_i$. Then 
+	\begin{align*}
+		\Vol_1 \left ( \sum_{i = 1}^m \lambda_i P_i \right ) & = \Vol_1 \left ( \left [ \sum_{i = 1}^m \lambda_i a_i, \sum_{j = 1}^m \lambda_j b_j \right ] \right ) \\
+		& = \sum_{i = 1}^m \lambda_i (b_i - a_i) \\
+		& = \sum_{i = 1}^m V(P_i) \lambda_i. 
+	\end{align*}
+	This proves the base case. Now, suppose our equation holds for $n-1$. Let $u_1, \ldots, u_N$ be the unit normal facet vectors of $P_1 + \ldots + P_m$. Let $P_\lambda = \sum \lambda_i P_i$. We have 
+	\begin{align*}
+		\Vol_n (P_\lambda) & = \sum_{i = 1}^N \frac{1}{n} \Vol_{n-1} \left (F_{P_\lambda} (u_i) \right ) \cdot h_{P_\lambda}(u_i) \\
+		& = \sum_{i_1, \ldots, i_n = 1}^m \left \{ \sum_{i = 1}^N \frac{1}{n} V_{n-1}\left (F_{P_{i_1}}(u_i), \ldots, F_{P_{i_{n-1}}}(u_i) \right ) h_{P_{i_n}}(u_i) \right \} \cdot \lambda_{i_1} \ldots \lambda_{i_n} \\
+		& = \sum_{i_1, \ldots, i_n = 1}^m V_n(P_{i_1}, \ldots, P_{i_{n}}) \cdot \lambda_{i_1} \ldots \lambda_{i_n}.
+	\end{align*}
+	This completes the proof. 
+\end{proof}
+
+\newpage 
+
+\subsection{Problem 3.3}
+
+\begin{problem}
+	Let $K_1, \ldots, K_n \in \mathsf{K}^n$ be convex bodies in $\RR^n$. For all $i \in [n]$, let $(P_i^{(j)})_{j \geq 1}$ be a sequence of polytopes converging to $K_i$ with respect to the Hausdorff distance. 
+    \begin{enumerate}[label = (\alph*)]
+        \item Let $P_1, \ldots, P_n \in \mathsf{P}^n$. Then, prove that 
+        \[
+            V(P_1, \ldots, P_n) = \frac{1}{n!} \sum_{I \subset [n]} (-1)^{n + |I|} \cdot \Vol_n \left ( \sum_{i \in I} P_i \right ).
+        \]  
+        \item Prove that the sequence $V_n(P_1^{(j)}, \ldots, P_n^{(j)})$ is convergent and that the limit is independent of the choice of our approximating sequences of polytopes. We define $V(K_1, \ldots, K_n) = \lim_{j \to \infty} V_n(P_1^{(j)}, \ldots, P_n^{(j)})$ to be the mixed volume of $K_1, \ldots, K_n$. 
+        
+        \item Prove that Theorem 3.0.1 holds for general convex bodies. 
+        
+        \item Prove that the mixed volume $V_n : (\mathsf{K}^n)^n \to \RR_{\geq 0}$ is a continuous function. 
+    \end{enumerate}
+\end{problem}
+
+\begin{proof}
+	This problem has four parts. 
+	\begin{enumerate}[label = (\alph*)]
+		\item You may assume that the mixed volume is permutation invariant. This fact by itself is not too difficult (not obvious, however) to show using the volume expansion formula in terms of the mixed volume or the inductive definition of mixed volume. The right hand side can be simplified to  
+		\begin{align*}
+			n! \cdot \mathsf{RHS} & = \sum_{I \subset [n]} (-1)^{n + |I|} \cdot \Vol_n \left ( \sum_{i \in I} P_i \right ) \\
+			& = \sum_{I \subset [n]} (-1)^{n + |I|} \cdot \sum_{i_1, \ldots, i_n \in I} V_n(P_{i_1}, \ldots, P_{i_n}) \\
+			& = \sum_{i_1, \ldots, i_n \in [n]} V_n(P_{i_1}, \ldots, P_{i_n}) \sum_{\{i_1, \ldots, i_n\} \subset I \subset [n]} (-1)^{n + |I|} \\
+			& = \sum_{i_1, \ldots, i_n \in [n]} V_n(P_{i_1}, \ldots, P_{i_n}) \cdot \1_{|\{i_1, \ldots, i_n\}| = n} \\
+			& = n! V_n(P_1, \ldots, P_n). 
+		\end{align*}
+		This completes the proof to (a). 
+
+		\item The sequence converges because of (a) and the fact that the volume functional and Minkowski addition is continuous. The limit is independent of our choice of approximating sequences of polytopes because it is exactly equal to 
+		\[
+			V(K_1, \ldots, K_n) = \frac{1}{n!} \sum_{I \subset [n]} (-1)^{n + |I|} \cdot \Vol_n \left ( \sum_{i \in I} K_i \right ). 
+		\]
+
+		\item Let $K_1, \ldots, K_n \in \mathsf{K}^n$ be a collection of arbitrary convex bodies and let $P_i^{(j)} \to K_i$ be a sequence of polytopes converging to $K_i$ with respect to the Hausdorff distance. Then we have 
+		\[
+			V(P_1^{(j)}, P_2^{(j)}, P_3^{(j)}, \ldots, P_n^{(j)})^2 \geq V(P_1^{(j)}, P_1^{(j)}, P_3^{(j)}, \ldots, P_n^{(j)}) \cdot V(P_2^{(j)}, P_2^{(j)}, P_3^{(j)}, \ldots, P_n^{(j)}).
+		\]
+		By taking $j \to \infty$ and (d) we get the desired result. 
+
+		\item This follows because the $V_n$ is defined as the continuous extension of the right hand side of (a) to all of $\mathsf{K}^n$ where they agree on the dense set $\mathsf{P}^n$. Thus $V_n$ must agree with the right hand side on all of $\mathsf{K}^n$, which proves that it is continuous. 
+	\end{enumerate}
+\end{proof}
+
+\newpage 
+
+\subsection{Problem 3.4}
+
+\begin{problem}
+	Let $P_1, \ldots, P_n \in \mathsf{P}^n$ be polytopes in $\RR^n$. 
+    \begin{enumerate}[label = (\alph*)]
+        \item For any vector $v \in \RR^n$ and linear map $A : \RR^n \to \RR^n$, we have that  
+        \begin{align*}
+            V(P_1 + v, \ldots, P_n) = V(P_1, \ldots, P_n) \text{ and } V(A(P_1), \ldots, A(P_n)) = |\det A| \cdot V(P_1, \ldots, P_n).
+        \end{align*}
+        
+        \item The mixed volume is linear in each argument with respect to set addition and non-negative dilations. That is, for $P_1^{(1)}, P_1^{(2)} \in \mathsf{P}^n$ and $a > 0$, we have that 
+        \begin{align*}
+            V_n(a \cdot P_1^{(1)} + P_1^{(2)}, P_2, \ldots, P_n) & = a \cdot V_n(P_1^{(1)}, P_2, \ldots, P_n) + V_n(P_1^{(2)}, P_2, \ldots, P_n).
+        \end{align*}
+
+        \item Prove that for $P_1, \ldots, P_n, Q_1, \ldots, Q_n \in \mathsf{K}^n$ with $P_i \subset Q_i$ for all $1 \leq i \leq n$, we have that 
+        \[
+            0 \leq V(P_1, \ldots, P_n) \leq V(Q_1, \ldots, Q_n).
+        \]
+    \end{enumerate}
+\end{problem}
+
+\begin{proof}
+	This problem has three parts. 
+	\begin{enumerate}[label = (\alph*)]
+		\item Note that 
+		\begin{align*}
+			\Vol_n(\lambda_1(P_1 + v) + \lambda_2 P_2 + \ldots + \lambda_n P_n) & = \Vol_n (\lambda_1 P_1 + \ldots + \lambda_n P_n + \lambda_1 v) \\
+			& = \Vol_n(\lambda_1 P_1 + \ldots + \lambda_n P_n) \\
+			\Vol_n(\lambda_1 A P_1 + \ldots \lambda_n A P_n) & = \Vol_n (A(\lambda_1 P_1 + \ldots + \lambda_n P_n)) \\
+			& = |\det A| \Vol_n(\lambda_1 P_1 + \ldots + \lambda_n P_n). 
+		\end{align*}
+		By matching coefficients in the mixed volume representation of the volumes, we get the desired result. 
+
+		\item We have 
+		\[
+			\Vol_n(\lambda_1(a P_1^{(1)} + P_1^{(2)}) + \lambda_2 P_2 + \ldots + \lambda_n P_n) = \Vol_n(a \lambda_1 P_1^{(1)} + \lambda_1 P_1^{(2)} + \lambda_2 P_2 + \ldots + \lambda_n P_n).
+		\]
+		The coefficient of $\lambda_1 \ldots \lambda_n$ on the left hand side is $n! V_n(aP_1^{(1)} + P_1^{(2)}, P_2, \ldots, P_n)$. The corresponding coefficient on the right hand side is 
+		\[
+			n! \cdot a \cdot V_n(P_1^{(1)}, P_2, \ldots, P_n) + n! \cdot V_n(P_2^{(1)}, P_2, \ldots, P_n). 
+		\]
+		This proves (b). 
+
+		\item If the second inequaliy was true, we could take any arbitrary $x_i \in P_i$ for $1 \leq i \leq n$ and conclude
+		\[
+			V_n(P_1, \ldots, P_n) \geq V_n(\{x_1\}, \ldots, \{x_n\}) = 0.
+		\]
+		Thus it suffices to prove the second inequality. Moreover, from symmetry and an inductive argument, it suffices to prove the second inequality when only the first argument is a proper inclusion. That is, we will prove that if $K \subset L$ are convex bodies, then 
+		\[
+			V_n(K, P_2, \ldots, P_n) \leq V_n(L, P_2, \ldots, P_n). 
+		\]
+		Translate $K$ and $L$ simultaenously so that $K$ contains the origin. Since $L$ contains $K$, $L$ also contains the origin. If $\mathcal{U}$ is the set of unit facet normals of $P_2 + \ldots + P_n$. Then the recursive formula for mixed volume gives us 
+		\begin{align*}
+			V_n(K, P_2, \ldots, P_n) & = \frac{1}{n} \sum_{u \in \mathcal{U}} V_{n-1}(F_{P_2}(u), \ldots, F_{P_n} (u)) \cdot h_K(u) \\
+			& \leq \frac{1}{n} \sum_{u \in \mathcal{U}}  V_{n-1} (F_{P_2}(u), \ldots, F_{P_n}(u)) \cdot h_L(u) \\ 
+			& = V_n(L, P_2, \ldots, P_n)
+		\end{align*}
+		where the penultimate step follows since $L$ contains $K$ and $K$ contains the origin. 
+	\end{enumerate}
+\end{proof}
+
+\newpage 
+
+\subsection{Problem 3.5}
+
+\begin{problem} \label{problem-3.5}
+	The following problems are some more properties of mixed volumes. 
+    \begin{enumerate}[label = (\alph*)]
+        \item Prove that $V(K, \ldots, K) = \Vol_n(K)$. 
+        \item Let $K, L \in \mathsf{K}^n$. Prove that 
+        \[
+            \Vol_n(\lambda_1 K + \lambda_2 L) = \sum_{r = 0}^n \binom{n}{r} V(K[r], L[n-r]) \lambda_1^r \lambda_2^{n-r}    
+        \]
+        where $V(K[r], L[n-r])$ denotes the mixed volume with $r$ copies of $K$ and $n-r$ copies of $L$. 
+        \item One intuitive way to define the surface area of a convex body $K \subset \RR^n$ is to thicken it by $\varepsilon$ and divide the thickened part by $\varepsilon$. When $\varepsilon \to 0$, the resulting number should morally be the surface area. It turns out for convex bodies, this number exists and can be written in terms of a mixed volume. In particular, prove that  
+        \[
+            \lim_{N \to \infty} \frac{\Vol_n \left (K + \frac{1}{N} \cdot B^n \right ) - \Vol_n(K)}{1/N} = n V(K[n-1], B^n).
+        \]
+        \item Let $\mcV = \{v_1, \ldots, v_m\}$ be a collection of vectors in $\RR^n$ where $m \geq n$. Prove that 
+        \[
+            \Vol_n(Z(\mcV)) = \sum_{I \subset \mcV : |I| = n} \Vol_n(Z(I)).
+        \] 
+    \end{enumerate}
+\end{problem}
+
+\begin{proof}
+	This problem has three parts. 
+	\begin{enumerate}[label = (\alph*)]
+		\item We have that $\Vol_n(K + \ldots + K) = n^n V(K, \ldots, K)$ where $K$ appears $n$ times on the left. I claim that the convexity of $K$ implies that $K + \ldots + K = n K$. Clearly, $nK \subset K + \ldots + K$. To prove the other inclusion, pick an arbitrary elements $k_1 + \ldots + k_n$ and note that 
+		\[
+			k_1 + \ldots + k_n = n \cdot \left( \frac{k_1 + \ldots + k_n}{n} \right ) \in n \cdot K. 
+		\]
+		Thus, we have 
+		\[
+			n^n \Vol_n(K) = \Vol_n(K + \ldots + K) = n^n V(K, \ldots, K) \implies V(K, \ldots, K) = \Vol_n(K). 
+		\]
+		\item From the mixed volume formula, we get that 
+		\begin{align*}
+			\Vol_n(K + \varepsilon B^n) & = \sum_{r = 0}^n \binom{n}{r} V(K[r], B^n[n-r]) \varepsilon^{n-r} \\
+			& = \Vol_n(K) + \varepsilon \binom{n}{1} V(K[n-1], B^n) + \varepsilon^2 \cdot \Omega(\varepsilon)
+		\end{align*}
+		where $\Omega(\varepsilon)$ is a polynomial in $\varepsilon$. This completes the proof to (b). 
+
+		\item Note that 
+		\[
+			Z(\mathcal{V}) = \sum_{i = 1}^m L_i
+		\]
+		where $L_i := [0, v_i] = \{\lambda v_i \in \RR^n : 0 \leq \lambda \leq 1\}$. The volume is then 
+		\[
+			\Vol_n(Z(\mathcal{V})) = \sum_{i_1, \ldots, i_n = 1}^m V_n(L_{i_1}, \ldots, L_{i_n}).
+		\]
+		To simplify this result, we prove that if $w_1, \ldots, w_n \in \RR^n$ are arbitrary vectors, then 
+		\[
+			V_n([0, w_1], \ldots, [0, w_n]) = \frac{|D (w_1, \ldots, w_n)|}{n!}.
+		\]
+		Let $T : \RR^n \to \RR^n$ be the linear map defined on the standard basis by $Te_i = w_i$ and extended linearly to all of $\RR^n$. We have 
+		\begin{align*}
+			V_n([0, w_1], \ldots, [0, w_n]) & = V_n(T[0, e_1], \ldots, T[0, w_n]) \\
+			& = |\det T| \cdot V_n([0, e_1], \ldots, [0, e_n]) \\
+			& = |D(w_1, \ldots, w_n)| \cdot V_n([0, e_1], \ldots, [0, e_n]). 
+		\end{align*}
+		There are many ways we can calculate $V_n([0, e_1], \ldots, [0, e_n])$. We just present one of them. We have 
+		\begin{align*}
+			V_n([0, e_1], \ldots, [0, e_n]) & = \frac{1}{n!} \frac{\partial^n}{\partial t_1 \ldots \partial t_n} \cdot \Vol_n \left ( \sum_{i = 1}^n t_i [0, e_i] \right ) \\
+			& =\frac{1}{n!} \frac{\partial^n}{\partial t_1 \ldots \partial t_n} \cdot t_1 \ldots t_n \\
+			& = \frac{1}{n!}. 
+		\end{align*}
+		This implies that if any of the indices $i_1, \ldots, i_n$ are the same, then automatically we have $V_n(L_{i_1}, \ldots, L_{i_n}) = 0$. Hence, we have 
+		\begin{align*}
+			\Vol_n(Z(\mathcal{V})) & = \sum_{1 \leq i_1 < \ldots < i_n \leq m} n! \cdot V_n(L_{i_1}, \ldots, L_{i_n}) = \sum_{I \subset \mathcal{V} : |I| = n} |D(v_{i_1}, \ldots, v_{i_n})|.
+		\end{align*}
+		Problem~\ref{problem-2.13} completes the proof. 
+	\end{enumerate}
+\end{proof}
+
+\newpage 
+
+\section{An Inequality about Mixed Volumes}
+
+\subsection{Problem 4.1}
+\begin{problem}
+	Prove the following inequalities. 
+    \begin{enumerate}[label = (\alph*)]
+        \item Prove that for any $1 \leq r \leq n$, we have 
+        \[
+            V(K_1, \ldots, K_n)^r \geq V(K_1[r], \mcP_r) \cdot \ldots \cdot V(K_r[r], \mcP_r)
+        \]
+        where $\mcP_r = \{K_{r+1}, \ldots, K_n\}$. 
+        \item Prove that $V(K_1, \ldots, K_n)^n \geq \Vol_n(K_1) \ldots \Vol_n(K_n)$
+    \end{enumerate}
+\end{problem}
+
+\begin{proof}
+	This problem has two parts. 
+	\begin{enumerate}[label = (\alph*)]
+		\item We induct on $r$. The base case $r = 1$ is equality and $r = 2$ is just Theorem 4.1.1. Suppose the inequality is true for $r$. We will prove that it is true for $r+1$. Fix an $l$ in $1 \leq l \leq r$. Define the sequence 
+		\[
+			A_k := V_n(K_l[k], K_{r+1}[(r+1)-k], \mathcal{P}_{r+1}).
+		\]
+		Then Theorem 4.1.1 implies that $A_k^2 \geq A_{k-1}A_{k+1}$ for all $k$. We can rewrite this to 
+		\[
+			\frac{A_1}{A_0} \geq \frac{A_2}{A_1} \geq \ldots \geq \frac{A_r}{A_{r-1}} \geq \frac{A_{r+1}}{A_r}. 
+		\]
+		Then, we have the bound 
+		\[
+			\prod_{i = 1}^r \frac{A_i}{A_{i-1}} \geq \left ( \frac{A_{r+1}}{A_r} \right )^r \implies A_r^{r+1} \geq A_{r+1}^r A_0. 
+		\]
+		In terms of mixed volumes, this is equivalent to 
+		\[
+			V_n(K_l[r], \mathcal{P}_r)^{r+1} \geq V(K_l[r+1], \mathcal{P}_{r+1})^r V(K_{r+1}[r+1], \mathcal{P}_{r+1}). 
+		\]
+		Thus, we can conclude that 
+		\begin{align*}
+			V(K_1, \ldots, K_n)^{r(r+1)} & \geq \prod_{l = 1}^r \left \{ V(K_l[r+1], \mathcal{P}_{r+1})^r V(K_{r+1}[r+1], \mathcal{P}_{r+1}) \right \} \\
+			& = \left ( \prod_{l = 1}^{r+1} V(K_l[r+1], \mathcal{P}_{r+1}) \right )^r.
+		\end{align*}
+		This suffices for the proof. 
+
+
+		\item This follows from (a) when $r = n$. 
+	\end{enumerate}
+\end{proof}
+
+\newpage 
+
+\subsection{Problem 4.2}
+
+\begin{problem} \label{problem-4.2}
+	In this problem, you will prove some properties of the normal cone. 
+    \begin{enumerate}[label = (\alph*)]
+        \item Verify that our geometric intuition about the normal cone is correct. Specifically, prove that $N_K(x) := \{u \in \RR^n : \pi_K(u + x) = x\}$. 
+        \item Let $K, L \in \mathsf{P}^n$. Prove that $N_{K+L}(x+y) = N_K(x) \cap N_L(y)$ for all $x \in K, y \in L$.
+        \item Let $K \in \mathsf{P}^n$ and $x, y \in P$ be two points. Prove that $N_K(x) = N_K(y)$ if and only if the smallest faces containing $x$ and $y$ are the same. 
+    \end{enumerate}
+\end{problem}
+
+\begin{proof}
+	This problem has three parts. 
+	\begin{enumerate}[label = (\alph*)]
+		\item Let $s \in N_K(x)$ be arbitrary. Then, for all $z \in K$ we have 
+		\[
+			\langle (x+s) - x , z - x \rangle = \langle s, z - x \rangle \leq 0.
+		\]
+		Hence $\pi_K(s + x) = x$. This gives the inclusion $N_K(x) \subset \{u \in \RR^n : \pi_K(u + x) = x\}$. Conversely, suppose $u \in \RR^n$ satisfies $\pi_K(u+x) = x$. Then, for all $z \in K$ we have 
+		\[
+			\langle (u+x) - x, z - x \rangle \leq 0 \implies \langle u, x \rangle \geq \langle u, z \rangle.
+		\]
+		Hence $u \in N_K(x)$. This completes the proof to (a). 
+
+		\item We can translate our polytopes so that $0 \in K, L$ and $x = y = 0$. Consider an arbitrary nonzero $u \in N_{K+L}(0)$. Then $K+L \subset H^{-}_{u, 0}$. Since $K = K + \{0\} \subset K + L$, we also have $K \subset H^-_{u, 0}$. It also touches the hyperplane at $0$, hence $u \in N_K(0)$. Similarly, we have $u \in N_L(0)$. Conversely, suppose $u$ is non-zero and $u \in N_K(0) \cap N_L(0)$. Then 
+		\[
+			\langle u, k+l \rangle = \langle u, k \rangle + \langle u, l \rangle \leq \langle u, 0 \rangle + \langle u, 0 \rangle = 0 = \langle u, 0 \rangle. 
+		\]
+		Hence $u \in N_{K+L}(0)$. This completes the proof to (b).
+
+		\item Suppose $x, y \in \rint F$ where $F$ is a face. Let $u \in N_K(x)$ be an arbitrary vector. Let $H$ be the supporting hyperplane of $K$ in the direction of $u$. Then $x \in H \cap K$. Hence $F \subset H \cap K$. In particular, $y \in F \subset H \cap K \subset H$, which implies that $u \in N_K(y)$. This proves that $N_K(x) = N_K(y)$ by symmetry. Now, suppose that $N_K(x) = N_K(y)$. Then each face of $K$ which contains $x$ necessarily contains $y$ and vice versa. This suffices for the proof. 
+	\end{enumerate}
+\end{proof}
+
+\newpage 
+
+\subsection{Problem 4.3}
+
+\begin{problem}
+	Let $P = \bigcap_{i = 1}^m H_{u_i, \alpha_i}^-$ be a polyhedron. Recall that $\mathsf{ind}(x) = \{i \in [m] : \langle x, u_i \rangle = \alpha_i\}$ are the indices of the hyperplanes that contain $x$. 
+    \begin{enumerate}[label = (\alph*)]
+        \item Prove that $N_P(x) = \pos \{u_i : i \in \mathsf{ind}(x) \}$.
+        \item Prove that $\dim F + \dim N_P(F) = n$ whenever $F$ is a face of $P$. 
+    \end{enumerate}
+\end{problem}
+
+\begin{proof}
+	This problem has two parts. 
+	\begin{enumerate}[label = (\alph*)]
+		\item First, translate the polyhedron $P$ so that $x = 0$. Consider the new polyhedron $Q$ defined by 
+		\[
+			Q := \{v \in \RR^n : \langle v, u_i \rangle \leq 0 \text{ for all } i \in \mathsf{ind}(0)\}.
+		\]
+		Clearly $N_P(0) = N_Q(0)$. It is easy to check that $N_Q(0)$ is a cone. Thus 
+		\[
+			K := \pos \{u_i : i \in \mathsf{ind}(0) \} \subset N_Q(0) = N_P(0)
+		\]
+		where the first inclusion follows since $u_i \in N_Q(0)$ for all $i \in \mathsf{ind}(0)$. To prove the other direction, assume for the sake of contradiction that $K \not\subset N_Q(0)$. Then, there exists some vector $v \in N_Q(0) \backslash K$. Since it is an element of the normal cone, we must have $\langle v, q \rangle \leq 0$ for all $q \in Q$. Indeed, $v$ and $Q$ would be in different half-spaces split by the hyperplane perpendicular to $v$. Since $K$ is closed, convex and does not contain $v$, there is some $z \in \RR^n$ with 
+		\[
+			\langle v, z \rangle > 0 = \sup_{u \in K} \langle u, z \rangle \geq \sup_{i \in \mathsf{ind}(0)} \langle u_i, z \rangle.
+		\]
+		This implies that $z \in Q$. But this is a contradiction since then $\langle v, z \rangle > 0$ and $\langle v, z \rangle \leq 0$. This proves (a). 
+
+		\item If $x \in \rint F$, Proposition 2.4.1 implies that 
+		\[
+			F = P \cap \{z \in \RR^n : \langle z, u_i \rangle = \alpha_i \text{ for all } i \in \mathsf{ind}(x)\}.
+		\]
+		This immediately implies that $\dim F = \dim U$ where $U := \lin \{u_i : i \in \mathsf{ind}(x)\}^\perp$. From (a), we have that 
+		\begin{align*}
+			\dim F + \dim N_P(F) = \dim U + \dim U^\perp = n
+		\end{align*}
+		for example by Theorem 1.3.1 on the projection map onto the subspace $U$. This completes the proof. 
+	\end{enumerate}
+\end{proof}
+
+\newpage 
+
+\subsection{Problem 4.4}
+
+\begin{problem} \label{problem-4.4}
+	Prove that $P_1, P_2 \in \mathsf{P}^n$ are consonant if and only if 
+    \[
+        \{N_{P_1}(v) : v \in v(P_1) \} = \{N_{P_2}(v) : v \in v(P_2) \}.   
+    \]
+\end{problem}
+
+\begin{proof}
+	Suppose $P_1$ and $P_2$ are consonant. From the disjoint tiling property of the normal cones, note that it suffices to prove that for any $x_1 \in v(P_1)$, there is some $x_2 \in v(P_2)$ such that $N_{P_1}(x_1) \subset N_{P_2}(x_2)$. Pick an arbitrary $x_1 \in v(P_1)$. For any $u \in \tint N_{P_1}(x_1)$, we have that 
+	\[
+		\dim F_{P_2}(u) = \dim F_{P_1}(u) = \dim \{x_1\} = 0.
+	\] 
+	Hence $F_{P_2}(u) = \{x_2\}$ for some $x_2 \in v(P_2)$ and $u \in \tint N_{P_2}(x_2)$. Let $v \in N_{P_1}(x_1)$ be arbitrary and let $v_\lambda = \lambda v + (1-\lambda) u$ for $\lambda \in [0, 1)$. From Problem~\ref{problem-2.2}, $v_\lambda \in \tint N_{P_1}(x_1)$. Thus, from the same reasoning, we get $v_\lambda \in \tint N_{P_2}(y_\lambda)$ for some $y_\lambda \in v(P_2)$. Written in terms of maps, we have a continuous map $f : [0, 1) \to \RR^n$ defined by $f(\lambda) = v_\lambda$. This gives us an open cover
+	\[
+		[0, 1) \subset \bigcup_{y \in v(P_2)} f^{-1} \left ( \tint N_{P_2}(y) \right ).
+	\]
+	I claim that $v_\lambda \in \tint N_{P_2}(x_2)$ for all $\lambda \in [0, 1)$. Let us fix $\lambda \in [0, 1)$ and restrict outselves to the interval $[0, \lambda]$. Then, the above cover is an open cover of the compact set $[0, \lambda]$. From Theorem 1.8.2, there is a $\delta > 0$ such that any subset of diameter less than $\delta$ is contained in one of the pre-images. If we partition our interval $[0, \lambda]$ into smaller intervals of length less than $\delta$, then each of these subintervals would be contained in one of the preimages. Moreover, the preimages are disjoint since the interiors are disjoint. This means that every point is contained in exactly one of the preimages. Since $f(0) \in f^{-1}(\tint N_{P_2}(x_2))$, this means that the first subinterval is also in the same pre-image. Repeating this for all finite subintervals, we get $[0, \lambda] \subset f^{-1}(\tint N_{P_2}(x_2))$. In particular, $v_\lambda \in \tint N_{P_2}(x_2)$ for all $\lambda \in [0, 1)$. Since $v$ was arbitrary, this gives us $N_{P_1}(x_1) \subset N_{P_2}(x_2)$ as desired. \\
+
+	Now, suppose that the normal cones of the extreme points of $P_1$ and $P_2$ are the same. Let $u \in S^{n-1}$ be an arbitrary vector and consider a vertex $x_1$ of $F_{P_1}(u)$. Then there is some $x_2 \in v(P_2)$ with $N_{P_1}(x_1) = N_{P_2}(x_2)$. Then $u$ is contained in a $\dim N_{P_1}(F_{P_1}(u)) = n - \dim F_{P_1}(u)$ face of $N_{P_1}(F)$. The same is true of $P_2$. Hence 
+	\[
+		\dim F_{P_1}(u) = \dim F_{P_2}(u). 
+	\]
+	This proves that $P_1$ and $P_2$ are consonant.
+\end{proof}
+
+\newpage
+
+\subsection{Problem 4.5}
+
+\begin{problem}
+	Let $K_1, \ldots, K_m \in \mathsf{K}^n$ be convex bodies. In this problem, you will prove that for every $\varepsilon > 0$ there exist simple consonant polytopes $P_1, \ldots, P_m \in \mathsf{P}^n$ such that $\delta(K_i, P_i) < \varepsilon$ for $i$, $1 \leq i \leq m$.
+\end{problem}
+
+\begin{proof}
+	From Problem~\ref{problem-2.16}, there exist polytopes $Q_1, \ldots, Q_m$ such that $\delta (K_i, Q_i) < \varepsilon/ 2$ for $1 \leq i \leq m$. Let $P = Q_1 + \ldots + Q_m$ and let $P'$ be the polytope obtained from Theorem 4.2.1 on $P$. Define $P_i := Q_i + \alpha P'$ for $\alpha > 0$ sufficiently small so that $\delta(Q_i, P_i) < \varepsilon / 2$. Note that 
+	\[
+		\delta(K_i, P_i) \leq \delta(K_i, Q_i) + \delta(Q_i, P_i) < \varepsilon. 
+	\]
+	It suffices to prove that $P_i$ is consonant with $P'$. Indeed, that would imply that $P_1, \ldots, P_m$ are consonant polytopes which approximate the original convex bodies and they are simple since $P'$ is simple. To prove this, let $x \in v(P_i)$ be an arbitrary vertex of $P_i$. This implies that $x = q + \alpha p$ where $q \in v(Q_i)$ and $v(P')$. Indeed, if $x \in v(P + Q)$ for $P, Q \in \mathsf{K}^n$ in the direction $u$, then compactness implies 
+	\[
+		\sup_{p+q \in P + Q} \langle p+q, u \rangle = \sup_{p \in P} \langle p, u \rangle + \sup_{q \in Q} \langle q, u \rangle.
+	\]
+	If the left hand side has a unique maximazer, this implies that both terms on the right have unique maximers. Thus, $x$ can be written as the sum of two vertices. Then, we have 
+	\[
+		N_{P_i}(x) = N_{Q_i}(q) \cap N_{P'}(p)
+	\] 
+	from Problem~\ref{problem-4.2}. The normal cone $N_{P'}(p)$ by construction is contained in the normal cone of some vertex of $P$. From Problem~\ref{problem-4.4}, this normal cone is contained in the normal cone of some vertex of $Q_j$. This would have to be in $N_{Q_i}(q)$ since their intersection has full dimension. This implies that $N_{P_i}(x) = N_{P'}(p)$. From Problem~\ref{problem-4.4}, the $P_i$'s are consonant with $P'$, which suffices for the proof.
+\end{proof}
+
+\newpage
+
+\subsection{Problem 4.6}
+
+\begin{problem}
+	Prove that $h$ embeds $[P]$ into $\RR^N$ as a cone. That is, prove that $h(\lambda \cdot P_1 + P_2) = \lambda \cdot h(P_1) + h(P_2)$ for all $\lambda \geq 0$ and $P_1, P_2 \in [P]$. 
+\end{problem} 
+
+\begin{proof}
+	We have
+	\begin{align*}
+		h(\lambda P_1 + P_2) & = \sum_{i = 1}^N h_i(\lambda P_1 + P_2) e_i \\
+		& = \sum_{i = 1}^N \lambda h_i(P_1)e_i + h_i(P_2)e_i \\
+		& = \lambda \cdot h(P_1) + h(P_2). 
+	\end{align*}
+	This suffices for the proof. 
+\end{proof}
+
+\newpage 
+
+\subsection{Problem 4.7}
+
+\begin{problem} \label{problem-4.7}
+	Let $\mathcal{P} = \{C_1, \ldots, C_{n-2}\} \subset \mathsf{P}^n$ be a fixed collection of simple consonant polytopes in $[P]$. Prove that there exists a graphic matrix $M$ and a diagonal matrix $D$ such that 
+    \[
+        V(P_1, P_2, \mathcal{P}) = \langle h(P_1), (M-D) h(P_2) \rangle    
+    \]
+    whenever $P_1, P_2 \in [P]$. A diagonal matrix is a square matrix where the only non-zero terms lie on the main diagonal.
+\end{problem}
+
+\begin{proof}
+	Let $K$ be a polytope and let $F_i$ be a facet of $K$. Let $F_{ij} = F_i \cap F_j$ be a facet of $F_i$ where $F_j$ is also a facet. Let $h_i$ and $h_j$ be the height values for $F_i$ and $F_j$ with respect to $K$ and $h_{ij}$ the height value for $F_{ij}$ with respect to $F_i$. Let $u_i$ and $u_j$ be the normal vectors corresponding to $F_i$ and $F_j$ and let $v_{ij}$ be the normal vector corresponding to $F_{ij}$ with respect to $F_i$. If we define $\theta_{ij}$ to be the unique angle in $(0, \pi)$ for which $\cos \theta_{ij} = \langle u_i, u_j \rangle$, then we have 
+	\[
+		u_j = u_i \cos \theta_{ij} + v_{ij} \sin \theta_{ij}.
+	\]
+	Taking the inner products with an arbitrary element in $F_{ij}$, we get 
+	\[
+		h_j = h_i \cos \theta_{ij} + h_{ij} \sin \theta_{ij} \implies h_{ij} = h_j (\csc \theta_{ij}) - h_i (\cot \theta_{ij}). 
+	\]
+	Now, we use this analysis back in the original problem. Since our polytopes are all simple and consonant, the combinatorial order structure of the faces will be the same. In particular, consider the graph $(V, E)$ where $V$ consists of the ``facets'' labelled by the normal vectors $u_1, \ldots, u_N$ and $E$ the edges between facets which are adjacent. The graph will necessarily be a connected $n$-regular graph. We have 
+	\begin{align*}
+		V(P_1, P_2, \mathcal{P}) & = \frac{1}{n} \sum_{i = 1}^N h_i(P_1) V_{n-1}(F_i(P_2), F_i(\mathcal{P})) \\
+		& = \frac{1}{n(n-1)} \sum_{i = 1}^N h_i(P_1) \sum_{(i, j) \in E} h_{ij}(P_2) \cdot V_{n-2}(F_{ij}(C_3), \ldots, F_{ij}(C_d)). 
+	\end{align*}
+	If we define the constants 
+	\begin{align*}
+		A_{ij} & := \frac{V(F_{ij}(C_3), \ldots, F_{ij}(C_d)}{n(n-1)}, \quad X_{ij} := A_{ij} \csc \theta_{ij}, \quad Y_{ij} := A_{ij} \cot \theta_{ij}
+	\end{align*}
+	the mixed volume simplifies to 
+	\begin{align*}
+		V(P_1, P_2, \mathcal{P}) & = \sum_{i = 1}^N \sum_{(i, j) \in E} h_i(P_1) (h_j(P_2) \csc \theta_{ij} - h_i(P_2) \cot \theta_{ij}) A_{ij} \\
+		& = \sum_{i = 1}^N \sum_{(i, j) \in E} h_i(P_1) h_j(P_2) X_{ij} - h_i(P_1)h_i(P_2) Y_{ij} \\
+		& = \sum_{i, j = 1}^N \1_{(i, j) \in E} X_{ij} h_i(P_1) h_j(P_2) - \sum_{i = 1}^N \left ( \sum_{j : (i, j) \in E} Y_{ij} \right ) h_i(P_1) h_i(P_2). 
+	\end{align*}
+	If we define the $N \times N$ matrices $M := [M_{ij}]$ by $M_{ij} := \1_{(i, j) \in E} X_{ij}$ and $D := [D_{ij}]$ by $D_{ij} = \1_{i = j} \sum_{k : (i, k) \in E} Y_{ik}$, then we have 
+	\[
+		V(P_1, P_2, \mathcal{P}) = \langle h(P_1), M h(P_2) \rangle - \langle h(P_1), D h(P_2) \rangle = \langle h(P_1), (M-D)h(P_2) \rangle. 
+	\]
+	Note that $M$ is a graphic matrix since $\csc \theta_{ij} > 0$ for $\theta_{ij} \in (0, \pi)$ and $D$ is diagonal. This suffices for the proof.
+\end{proof}
+
+\newpage 
+
+\subsection{Problem 4.8}
+
+\begin{problem} \label{problem-4.8}
+	Let $K, L \subset \RR^2$ be two convex bodies in the plane. In this problem, you will prove that $V(K, L)^2 \geq V(K, K) V(L, L)$.
+    \begin{enumerate}[label = (\alph*)]
+        \item Prove that $\sqrt{\Vol_2(A + B)} \geq \sqrt{\Vol_2(A)} + \sqrt{\Vol_2(B)}$ for all convex bodies $A, B \subset \RR^2$. Hint: first approximate $A, B$ with finite unions of closed cells. 
+        
+        \item Conclude that $V(K, L)^2 \geq V(K, K) V(L, L)$. 
+    \end{enumerate}
+\end{problem}
+
+\begin{proof}
+	This problem has two parts. 
+	\begin{enumerate}[label = (\alph*)]
+		\item If we prove the result when $A, B$ are finite unions of closed cells with disjoint interiors, we would prove the result by Problem~\ref{problem-2.12} and the continuity of the volume operator. We prove the result for this special case by induction on the number of closed cells. For the base case, suppose $A = [0, x_1] \times [0, y_1]$ and $B = [0, x_2] \times [0, y_2]$ (after a translation). Then 
+		\begin{align*}
+			\Vol_2(A) & := x_1y_1 \\
+			\Vol_2(B) & := x_2y_2 \\
+			\Vol_2(A + B) & := (x_1 + x_2)(y_1 + y_2). 
+		\end{align*}
+		We want to prove that 
+		\[
+			\sqrt{(x_1 + x_2)(y_1 + y_2)} \geq \sqrt{x_1y_1} + \sqrt{x_2y_2}.
+		\]
+		But this is just the Cauchy-Schwartz inequality. Now, suppose the inequality is true when the total number of almost-disjoint cells among $A$ and $B$ is at most $n$. Now, suppose $A$ and $B$ have $n+1$ almost-disjoint cells among them. Note that we can translate $A$ and $B$ as we please without changing the volumes. Pick two almost disjoint cells $R_1$ and $R_2$ in $A$. These are necessarily separated by a coordinate direction. In particular, there exists some $j$ such that $R_1 \subset A \cap \{x_j \leq 0\} =: A_-$ and $R_2 \subset A \cap \{x_j \geq 0\} =: A_+$. We can then translate $B$ so that 
+		\begin{align*}
+			\frac{\Vol_2(A_+)}{\Vol_2(A)} & = \frac{\Vol_2(B_+)}{\Vol_2(B)} \\
+			\frac{\Vol_2(A_-)}{\Vol_2(A)} & = \frac{\Vol_2(B_-)}{\Vol_2(B)}
+		\end{align*}
+		where we define $B_{\pm}$ similarly as $A_{\pm}$. Note that $A_+ + B_+$ and $A_- + B_-$ are disjoint except for a set of zero volume. Each of the collections $A_+, B_+$ and $A_-, B_-$ also have at least $1$ less cell in each. Thus, we have
+		\begin{align*}
+			\Vol_2(A + B) & \geq \Vol_2(A_+ + B_+) + \Vol_2(A_- + B_-) \\
+			& \geq \left ( \sqrt{\Vol_2(A_+)} + \sqrt{\Vol_2(B_+)} \right )^2 + \left (\sqrt{\Vol_2(A_-)} + \sqrt{\Vol_2(B_-)} \right )^2 \\
+			& = \Vol_2(A_+) \left (1 + \sqrt{\frac{\Vol_2(B)}{\Vol_2(A)}} \right )^2 + \Vol_2(A_-) \left ( 1 + \sqrt{\frac{\Vol_2(B)}{\Vol_2(A)}} \right )^2 \\
+			& = \Vol_2(A) \left (1 + \sqrt{\frac{\Vol_2(B)}{\Vol_2(A)}} \right )^2 \\
+			& = (\sqrt{\Vol_2(A)} + \sqrt{\Vol_2(B)})^2.
+		\end{align*}
+		This suffices for the proof. 
+
+		\item By squaring (a), we get the inequality 
+		\[
+			\Vol_2(A + B) - \Vol_2(A) - \Vol_2(B) \geq 2 \sqrt{\Vol_2(A) \Vol_2(B)}.
+		\]
+		By expanding $\Vol_2(A + B) = V(A, A) + V(B, B) - 2 V(A, B)$ and turning all volumes in mixed volumes, we get 
+		\[
+			2V(A, B) \geq 2 \sqrt{V(A, A) V(B, B)} \implies V(A, B)^2 \geq V(A, A) V(B, B). 
+		\]
+		This suffices for the proof. 
+	\end{enumerate}
+\end{proof}
+
+\newpage 
+
+\subsection{Problem 4.9}
+
+\begin{problem} \label{problem-4.9}
+	Follow to outline to prove Theorem 4.4.1.
+    \begin{enumerate}[label = (\alph*)]
+        \item Prove that without loss of generality we can assume all $P_1, \ldots, P_n$ have full dimension and $0 \in \tint P_1$.
+        \item Prove the theorem when $d = 2$. 
+        \item Define the constants 
+        \[
+            p_i = \frac{1}{d} \cdot \frac{V_{d-1}(F_i(P_1), F_i(P_1), \ldots, F_i(P_{d-2}))}{h_i(P_1)}
+        \]
+        for all $1 \leq i \leq N$. Let $P$ be the matrix defined by $P(e_i) = p_i e_i$ for all $1 \leq i \leq N$. Prove that 
+        \[
+            \langle x, y \rangle_P := \langle x, Py \rangle = \sum_{i = 1}^N p_i x_i y_i  
+        \]
+        is an inner product. 
+        \item Let $A := P^{-1}(M-D)$ where $M, D$ were the matrices defined in the extension of the mixed volume $V(x, y, \mathcal{P}) = \langle x, (M-D)y \rangle$. Prove that for all $1 \leq i \leq N$ there exists a linear map $F_i : \RR^N \to \RR^{f_i}$ where $f_i$ is the number of facets of $F_i$ such that 
+        \begin{align*}
+            \langle e_i, A x \rangle & = \frac{1}{d} \cdot \frac{1}{p_i} V_{d-1}(F_i(x), F_i(P_1), \ldots, F_i(P_{d-2})) \\
+            V_{d-1}(F_i(h(Q)), F_i(P_1), \ldots, F_i(P_{d-2})) & = V_{d-1}(F_i(Q), F_i(P_1), \ldots, F_i(P_{d-2}))
+        \end{align*}
+        for all $1 \leq i \leq N$ and $Q \in [P]$. 
+        \item Prove that $\langle Ax, Ax \rangle_P \geq \langle x, Ax \rangle_P$ for all $x \in \RR^N$. 
+        \item Prove that $h(P_1)$ is the only eigenvector (up to a scalar factor) of $A$ of eigenvalue $1$. Moreover, prove that $1$ is the only positive eigenvalue of $A$. 
+        \item Finish the proof of Theorem 4.4.1.
+    \end{enumerate}
+\end{problem}
+
+\begin{proof}
+	This problem has seven parts. 
+	\begin{enumerate}[label = (\alph*)]
+		\item If $P_1, \ldots, P_n$ did not have full dimension, then all of our polytopes would be contained in parallel hyperplanes from consonance. Hence, the mixed volumes would all vanish. Thus, it suffices to prove the inequality when they all have full dimensions. In this case they have non-empty interiors. From the translation invariance of mixed volumes, we can assume $0 \in \tint P_1$. 
+
+		\item From Problem~\ref{problem-4.8} we have shown that 
+		\[
+			V(K, L)^2 \geq V(K, K) V(L, L)
+		\]
+		when $K$ and $L$ are convex bodies. In terms of the bilinear form, this means for any positive vectors $x, y \in \RR_{\geq 0}^N$ that are the height vector for convex bodies, the inequality holds. Note that for sufficiently large $\alpha > 0$, the vector $x + \alpha h(K)$ is a support vector. In this case, $\alpha h(K)$ is a support vector and $x$ is a small perturbation. Thus, we have 
+		\[
+			V(x + \alpha h(K), h(K))^2 \geq V(x + \alpha h(K), x + \alpha h(K)) \cdot V(K, K).
+		\]
+		Expanding via linearity, we get $V(x, K)^2 \geq V(x, x) V(x, K)$. To get the most generality, apply the same reasoning to 
+		\[
+			V(x, y + \alpha h(K))^2 \geq V(x, x) V(y + \alpha h(K), y + \alpha h(K)). 
+		\]
+
+		\item Since $0 \in \tint P_1$, the vector $h(P_1)$ has all positive coordinates. This implies that $p_i > 0$ for all $1 \leq i \leq N$ since all the polytopes have full-dimension, are strongly isomorphic, and the faces are taken in facet directions. This gives us the inequality. 
+		\[
+			\langle x, Px \rangle = \sum_{i = 1}^N p_i x_i^2 \geq 0.
+		\]
+		When equality holds, if must be the case that $x_i = 0$ for all $i$, hence $x = 0$. This proves that positive-definiteness holds. Linearity in the first slot follows from 
+		\[
+			\langle \lambda u + v, w \rangle_P = \sum_{i = 1}^N p_i(\lambda u_i + v_i) w_i = \lambda \sum_{i = 1}^N p_i u_i w_i + \sum_{i = 1}^N p_i v_i w_i = \lambda \langle u, w \rangle_P + \langle v, w \rangle_P. 
+		\]
+		Symmetry follows from 
+		\[
+			\langle x, Py \rangle = \sum_{i = 1}^N p_i x_i y_i = \sum_{i = 1}^N p_i y_i x_i = \langle y, Px \rangle. 
+		\]
+
+		\item We have that 
+		\begin{align*}
+			\langle e_i, Ax \rangle & = \sum_{k, j = 1}^N p_i^{-1}(M_{kj} - D_{kj}) \1_{k = i} \cdot x_j \\
+			& = p_i^{-1} \sum_{j = 1}^N  (M_{ij} - D_{ij}) x_j \\
+			& = p_i^{-1} \sum_{j : (i, j) \in E} A_{ij} x_j \cdot \csc \theta_{ij} - p_i^{-1} x_i \sum_{j : (i, j) \in E} A_{ij} \cot \theta_{ij}
+		\end{align*}
+		where we use the same notation in the solution of Problem~\ref{problem-4.7}. Recall that 
+		\[
+			A_{ij} = \frac{V_{d-2}(F_{ij}(P_1), \ldots, F_{ij}(P_{d-2}))}{d(d-1)}. 
+		\]
+		We can continue to simplify to get 
+		\begin{align*}
+			\langle e_i, Ax \rangle & = p_i^{-1} \sum_{j : (i, j) \in E} A_{ij} \cdot (x_j \csc \theta_{ij} - x_i \cot \theta_{ij}) \\
+			& = \frac{1}{dp_i} \sum_{j : (i, j) \in E} \frac{1}{d-1} V_{d-2}(F_{ij}(P_1), \ldots, F_{ij}(P_{d-2})) \cdot (x_j \csc \theta_{ij} - x_i \cot \theta_{ij}).
+		\end{align*}
+		Now, we want to prove that there exists a linear map $F_i: \RR^N \to \RR^{f_i}$ such that 
+		\begin{align*}
+			V_{d-1}(F_i(x), F_i(P_1), \ldots, F_i(P_{d-2})) & = \frac{1}{d-1} \sum_{j : (i, j) \in E} V_{d-2}(F_{ij}(P_1), \ldots, F_{ij}(P_{d-2})) \cdot (x_j \csc \theta_{ij} - x_i \cot \theta_{ij}) \\
+			& =: H(x).
+		\end{align*}
+		Note that $V_{d-1}(x, F_i(P_1), \ldots, F_i(P_{d-2})) = \langle x, v) \rangle$ for some fixed vector $v \in \RR^{f_i}$. Thus, we want to find $F_i : \RR^N \to \RR^{f_i}$ such that 
+		\[
+			\langle F_i (x), v \rangle = H(x).
+		\]
+		For vectors $h(Q)$ where $Q \in [P]$, we have a well-defined map $F_i(h(Q)) = h(F_i(Q))$. This is linear on positive linear combinations of these ``height vectors". From Theorem 4.2.1, we know that the consonance class is preserved under arbitrarily small perturbation. Hence, the height vectors span all of $\RR^N$. This implies that any vector can be written as a linera combination of height vectors. By collection the positive and negative vectors together, we get that any vector can be written as $h(A) - h(B)$ for $A, B \in [P]$. Thus, we can extend $F_i$ to all of $\RR^N$ by defining it by
+		\[
+			F_i(h(A) - h(B)) = h(F_i(A)) - h(F_i(B)).
+		\]
+		This is well-defined because if $h(A) - h(B) = h(A') - h(B')$, then we have $h(A) + h(B') = h(A') + h(B)$. Applying the positive linearity of $F_i$, we then get
+		\[
+			F_i(h(A)) + F_i(h(B')) = F_i(h(A')) + F_i(h(B)) \implies h(F_i(A)) - h(F_i(B)) = h(F_i(A')) - h(F_i(B')).
+		\]
+		Now note that 
+		\[
+			\langle F_i(x), v \rangle = H(x)
+		\]
+		whenever $x$ is a height vector by our computation in Problem~\ref{problem-4.7}. Since every vector can be written as the difference of height vectors, we have that the equality holds for all $x \in \RR^N$. Note that this implies that 
+		\[
+			\langle e_i, Ax \rangle = \frac{1}{dp_i} \cdot V_{d-1}(F_i(x), F_i(P_1), \ldots, F_i(P_{d-2})).
+		\] 
+		To prove the second equality, note that 
+		\begin{align*}
+			H(h(Q)) & = \frac{1}{d-1} \sum_{j : (i, j) \in E} V_{d-2} (F_{ij}(P_1), \ldots, F_{ij}(P_{d-2})) \cdot (h_j \csc \theta_{ij} - h_i \cot \theta_{ij}) \\
+			& = \frac{1}{d-1} \sum_{j : (i, j) \in E} V_{d-2} (F_{ij}(P_1), \ldots, F_{ij}(P_{d-2})) \cdot h_{ij} \\
+			& = V_{d-1} (F_i(Q), F_i(P_1), \ldots, F_i(P_{d-2})).
+		\end{align*}
+		This proves (d). 
+		\item We have that $\langle Ax, Ax \rangle_P^2 = \sum_{i = 1}^N (Ax)_i^2 p_i$. We can compute
+		\begin{align*}
+			(Ax)_i^2 p_i & = \langle e_i, Ax \rangle^2 p_i \\
+			& = \frac{1}{d^2 p_i} V_{d-1}(F_i(x), F_i(P_1), \ldots, F_i(P_{d-2})) \\
+			& = \frac{h_i(P_1)}{d} \cdot \frac{V_{d-1}(F_i(x), F_i(P_1), \ldots, F_i(P_{d-2}))}{V_{d-1}(F_i(P_1), F_i(P_1), \ldots, F_i(P_{d-2}))} \\
+			& \geq \frac{h_i(P_1)}{d} \cdot V_{d-1}(F_i(x), F_i(x), F_i(P_2), \ldots, F_i(P_{d-2}))
+		\end{align*}
+		from the inductive hypothesis. Summing over all $i$, we get 
+		\begin{align*}
+			\langle Ax, Ax \rangle_P & \geq \sum_{i = 1}^n \frac{h_i(P_1)}{d} V_{d-1}(F_i(x), F_i(x), F_i(P_2), \ldots, F_i(P_{d-2})) \\
+			& = V_d(x, x, P_1, \ldots, P_{d-2}) = \langle x, Ay \rangle_P.
+		\end{align*}
+		The first inequality follows from a similar calculation as (d). 
+
+		\item Since $A$ is self-adjoint with respect to the inner product $\langle \cdot, \cdot \rangle_P$, we know that it has real eigenvalues and has an orthonormal basis of eigenvectors from Theorem 1.4.1. We first check that $h(P_1)$ is an eigenvector of eigenvalue $1$. Indeed, we have 
+		\[
+			(Ah(P_1))_i = \langle e_i, Ah(P_1) \rangle = \frac{1}{dp_i} V_{d-1}(F_i(P_1), F_i(P_1), \ldots, F_i(P_{d-2})) = h_i(P_1). 
+		\]
+		Hence $Ah(P_1) = h(P_1)$ as claimed. To prove that $1$ is the largest eigenvector, note that for large enough $\alpha$, the matrix
+		\[
+			A + \alpha I = P^{-1}(M - D + \alpha P)
+		\]
+		is a positive matrix. Hence, from Theorem 1.4.2, $h(P_1)$ is the unique eigenvector with strictly positive entries that corresponds to the maximum eigenvalue of $1 + \alpha$. This implies that the maximum eigenvalue of $A$ is $1$ with unique eigenvector $h(P_1)$. To prove that $1$ is the only positive eigenvalue of $A$, let $x$ be an arbitrary eigenvector with eigenvalue $\lambda$. Then, from (d), we have 
+		\[
+			\langle Ax, Ax \rangle_P \geq \langle x, Ax \rangle_P \implies \lambda^2 \geq \lambda. 
+		\]
+		This means $\lambda \geq 1$ or $\lambda \leq 0$. This proves that $1$ is the unique positive eigenvalue. 
+
+		\item From Problem~\ref{problem-1.11} and (e), we then know that 
+		\[
+			\langle x, Ah(K) \rangle^2 \geq \langle x, Ax \rangle_P \cdot \langle h(K), Ah(K) \rangle_P.
+		\]
+		Turning this expression into mixed volumes, we get 
+		\[
+			V(x, K, P_1, \ldots, P_{d-2})^2 \geq V(x, x, P_1, \ldots, P_{d-2}) \cdot V(K, K, P_1, \ldots, P_{d-2}). 
+		\]
+		This suffices for the proof. 
+	\end{enumerate}
+\end{proof}
+
+\newpage 
+
+\section{Combinatorial Applications of Mixed Volumes}
+
+\subsection{Problem 5.1}
+
+\begin{problem}
+	The following two problems are about linear extensions and the order polytope. 
+    \begin{enumerate}[label = (\alph*)]
+        \item Prove that for any non-empty poset $P$, the set $e(P)$ is non-empty. 
+        \item Prove that $\mathcal{O}_P$ is a convex body and $\Vol_n(\mathcal{O}_P) = \frac{|e(P)|}{n!}$.
+    \end{enumerate}
+\end{problem}
+
+\begin{proof}
+	This problem has two parts. 
+	\begin{enumerate}[label = (\alph*)]
+		\item We induct on $|P|$. If $|P| = 1$, the claim follows immediately. Suppose the claim is true for $n$ and let $|P| = n+1$. Let $M \in P$ be a maximal element. There is some linear extension of $P \backslash \{M\}$. We get a linear extension of $P$ by appending $M$ at the very end. This suffices for the proof for (a). 
+
+		\item Note that 
+		\[
+			\mathcal{O}_P = \bigcup_{l \in e(P)} \{0 \leq x_{l(1)} \leq \ldots \leq x_{l(n)} \leq 1\}
+		\]
+		where the union is almost-disjoint. Each of the summands is a determinant $1$ linear transform of the standard tetrahedron $\Delta$. This implies that 
+		\[
+			\Vol_n(\mathcal{O}_P) = \sum_{l \in e(P)} \Vol_n(\Delta) = \frac{e(P)}{n!}. 
+		\]
+	\end{enumerate}
+\end{proof}
+
+\newpage 
+
+\subsection{Problem 5.2}
+
+\begin{problem} \label{problem-5.2}
+	In this problem, you explore what it means for a sequence to be log-concave.
+    \begin{enumerate}[label = (\alph*)]
+        \item Prove that the sequence of binomial coefficients $\{\binom{n}{k}\}_{0 \leq k \leq n}$ is log-concave. 
+        \item If the sequence $\{a_k\}_{1 \leq k \leq n}$ is log-concave and $a_k \geq 0$ for all $k$, prove that it is unimodal. 
+        \item Let $K, L \in \mathsf{K}^n$ let $V_i = V(K[i], L[n-i])$ be the mixed volume of $i$ copies of $K$ and $n-i$ copies of $L$. Prove that the sequence $\{V_i\}_{0 \leq i \leq n}$ is log-concave. 
+    \end{enumerate}
+\end{problem}
+
+\begin{proof}
+	This problem has three parts. 
+	\begin{enumerate}[label = (\alph*)]
+		\item We have 
+		\[
+			\frac{\binom{n}{k}^2}{\binom{n}{k-1} \binom{n}{k+1}} = \frac{(k+1)(n-k+1)}{k(n-k)} = \left ( 1 + \frac{1}{k} \right ) \left ( 1 + \frac{1}{n-k} \right ) \geq 1. 
+		\]
+
+		\item Note that $a_k / a_{k-1} \geq a_{k+1} / a_k$. The ratio between consective is monotonically decreasing. Once the ratio becomes less than $1$, we have passed the unique maximum. This proves (b). 
+
+		\item From Theorem 4.4.1, we get 
+		\[
+			V(K[i], L[n-i])^2 \geq V(K[i+1], L[n-i-1]) \cdot V(K[i-1], L[n-i+1]) \implies V_i^2 \geq V_{i+1} V_{i-1}.
+		\]
+		This proves (c). 
+	\end{enumerate}
+\end{proof}
+
+\newpage 
+
+\subsection{Problem 5.3}
+
+\begin{problem}
+	Let $P$ be a poset and $x \in P$ be a fixed element. Let $N_k$ be the number of linear extensions $f \in e(P)$ with $f(x) = i$. 
+    \begin{enumerate}[label = (\alph*)]
+        \item Let $P \backslash \{x\} = \{p_1, \ldots, p_{n-1}\}$. Recall that polytope associated to $P \backslash \{x\}$ is defined by 
+        \[
+            \Omega := \{ x \in [0, 1]^{n-1} : x_i \leq x_j \text{ if } p_i \leq p_j \}.    
+        \]
+        Define the following cross sections of this polytope by 
+        \begin{align*}
+            K & := \{ x \in \Omega : x_i = 1 \text{ if } p_i > x \} \\
+            L & := \{x \in \Omega : x_i = 0 \text{ if } p_i < x \}.
+        \end{align*}
+        Prove that $N_i = (n-1)! V(K[i-1], L[n-i])$ where $V(K[i-1], L[n-i])$ is the mixed volume with $i-1$ copies of $K$ and $n-i$ copies of $L$. 
+
+        \item Prove that the sequence $\{N_k\}$ is log-concave.
+    \end{enumerate}
+\end{problem}
+
+\begin{proof}
+	This problem has three parts. 
+	\begin{enumerate}[label = (\alph*)]
+		\item We will compute $\Vol_{n-1}(\lambda K + (1 - \lambda) L)$. For $\sigma \in e(P)$ define 
+		\[	
+			\Delta_\sigma = \{t \in \Omega : t_i \leq \lambda \text{ if $\sigma(p_i) < \sigma(x)$ and $t_i \geq \lambda$ if $\sigma(p_i) > \sigma(x)$}\}.
+		\]
+		We have that 
+		\[
+			\lambda K + (1-\lambda) L = \bigcup_{\sigma \in e(P)} \Delta_\sigma
+		\]
+		where the union is almost disjoint. Each of these shapes are the product of two tetrahedra. Thus, if we suppose $\sigma \in e(P)$ satisfies $\sigma(x) = k$, Problem~\ref{problem-2.13} gives us 
+		\[
+			\Vol_{n-1}(\Delta_\sigma) = \frac{\lambda^{k-1} \cdot (1 - \lambda)^{n-k}}{(k-1)! (n-k)!} = \frac{1}{(n-1)!} \binom{n-1}{k-1} \lambda^{k-1} (1 - \lambda)^{n-k}.
+		\]
+		Thus, 
+		\[
+			\Vol_{n-1}(\lambda K + (1-\lambda) L) = \sum_{k = 1}^n \frac{N_k}{(n-1)!} \binom{n-1}{k-1} \lambda^{k-1} (1-\lambda)^{n-k}.
+		\]
+		Matching coefficients, we immediately get $\frac{N_k}{(n-1)!} = V_{n-1}(K[k-1], L[n-k])$. This completes the proof to (a). 
+
+		\item This follows from Problem~\ref{problem-5.2} and (a). 
+	\end{enumerate}
+\end{proof}
+
+\newpage 
+
+\subsection{Problem 5.4}
+
+\begin{problem}
+	Let $A$ be a fixed matrix. Let $E$ be the labels of the columns and $\mathcal{I}$ be the collection of subsets of $E$ where the corresponding columns are linearly independent. Prove that $M = (E, \mathcal{I})$ is a matroid. 
+\end{problem}
+
+\begin{proof}
+	A non-empty set is vacuously linearly independent. Subsets of linearly independent vectors is clearly linear independent since any linear relation between the subset is a linear relation of the original set (with possibly zero coefficients). Thus, it suffices to prove the third property. Let $X = \{v_1, \ldots, v_{m+1}\}$ and $Y = \{w_1, \ldots, w_m\}$ be two collections of linearly independent vectors. For the sake of contradiction, suppose that there is no $v_i$ so that $\{v_i, w_1, \ldots, w_m\}$ is linearly independent. In particular, this implies that each $v_i$ can be written as a linear combination of the $w_1, \ldots, w_m$. Thus
+	\[
+		\lin \{v_1, \ldots, v_{m+1}\} \subset \lin \{w_1, \ldots, w_m\}.
+	\]
+	But comparing dimensions, this cannot be true. This suffices for the proof. 
+\end{proof}
+
+\newpage 
+
+\subsection{Problem 5.5}
+
+\begin{problem}
+	In this problem, you will work with two examples of matroids that both come from graph theory. 
+    \begin{enumerate}[label = (\alph*)]
+        \item Let $G$ be a graph (not necessarily simple) with edge set $E$. Let $\mathcal{I}$ be the family of subsets of $E$ where the edges contain no cycle. Prove that $(E, \mathcal{I})$ is a matroid.
+        \item Let $G$ be a bipartite graph with bipartitions $X$ and $Y$. Let $E = X$ and $\mathcal{I}$ be the collection of subsets of $E$ which can be matched with elements of $Y$. Prove that $(E, \mathcal{I})$ is a matroid. 
+    \end{enumerate}
+\end{problem}
+
+\begin{proof}
+	This problem has two parts. 
+	\begin{enumerate}[label = (\alph*)]
+		\item A non-empty set vacuously contained no cycle. Removing edges from an edge set will not add any new cycles. It suffices to prove the third property. Let $X, Y$ be edge collections with no cycles where $|X| = |Y| + 1$. The connected components of $Y$ are all trees. If any edge of $X$ connected two distinct connected components of $Y$, we are done. For the sake of contradiction, suppose that every edge of $X$ has both endpoints in the same connected component of $Y$. But within each connected component of $Y$, $X$ can only obtain at most the number of edges that $Y$ has in the connected component (one less than the number of vertices) since $X$ also contained no cycles. But this cannot be true since $|X| > |Y|$. Thus, the augmentation property holds. This proves (a). 
+
+		\item The non-empty and hereditary property are straightforward so we omit the proof. It suffices to prove the augmentation property. Let $X \subset E$ and $Y \subset E$ be subsets that can be matched with $|X| = |Y| + 1$. Now, consider the edges $E_X$ in the matching of $X$ and the edges $E_Y$ in the matching of $Y$. Color the edges $E_X$ blue and the edges $E_Y$ red where if an edge is colored both red and blue, we color it purple. The number of blue edges is then $|E_X \backslash E_Y$ and the number of red edges is $|E_Y \backslash E_X|$. We also have 
+		\[
+			|E_X \backslash E_Y| = |E_Y \backslash E_X| + 1. 
+		\]
+		Let $H$ be the induced subgraph by the red and blue edges. Every vertex is then incident to either a single red edge, a single blue edges, or one red edge and one blue edge. This implies that the connected components of $H$ consist of cycles and paths. Since there are more blue edges, that implies that there is a connected component which is a path that begins with blue and ends in blue. The path then alternates blue and red. Swap the colors in this path. The edges which are red and purple now form a matching by construction. Moreover, the vertices in $X$ which are adjacent to the red and purple consist of $Y$ and one other $x \in X$ (endpoint in $X$ of the path we considered). This suffices for the proof. 
+	\end{enumerate}
+\end{proof}
+
+\newpage 
+
+\subsection{Problem 5.6}
+
+\begin{problem}
+	Let $G$ be a graph and let $(E, \mcI)$ be the graphic matroid obtained from this graph. 
+    \begin{enumerate}[label = (\alph*)]
+        \item Let $A$ be a $|V(G)| \times |E(G)|$ matrix where the rows are indexed by the vertices and the columns are indexed by the edges. In the column representing edge $e$, we place $1$ in the entry corresponding to one of its endpoints, $-1$ to the entry corresponding to its other endpoint, and $0$ in the other column entries. If the edge happens to be a loop, leave the column as the zero column. Prove that the algebraic matroid obtained from $A$ is isomorphic to the graphic matroid obtained from $G$. 
+        \item Prove that the matrix $A$ in (a) is unimodular.
+        \item Let $n$ be the dimension of the graphic matroid obtained from $G$. Prove that there exists a unimodular $n \times |E(G)|$ matrix $B$ such that the algebraic matroid obtained from $B$ is isomorphic to the graphic matroid obtained from $G$. 
+    \end{enumerate}
+\end{problem}
+
+\begin{proof}
+	This problem has three parts. 
+	\begin{enumerate}[label = (\alph*)]
+		\item If suffices to prove that a set of edges contains a cycle if and only if the corresponding column vectors are linearly independent. Suppose we have a cycle. If the vertices of the cycle are $s_1, s_2, \ldots, s_m$ in this order, then the corresponding column vectors to the edges are the vectors 
+		\[
+			e_{s_1} - e_{s_2}, e_{s_2} - e_{s_3}, \ldots, e_{s_m} - e_{s_1}
+		\] 
+		up to a sign change. Adding all of these vectors, we get $0$. Hence they are linearly dependent. Now suppose we have a collection of columns which are linearly dependent. Consider a subset $v_1, \ldots, v_l$ of them such that there exist $\lambda_1, \ldots, \lambda_l \neq 0$ with 
+		\[
+			\lambda_1 v_1 + \ldots + \lambda_l v_l = 0.
+		\]
+		Starting from $v_1$, there are two corresponding non-zero vertices in this column. Among $v_2, \ldots, v_l$ there is a vector which has a non-zero value in one of these two entries. Without loss of generality, suppose it is $v_2$. Now among $v_3, \ldots, v_l$ there is a vector which has a non-zero value in one of the two non-zero value of $v_2$. Repeating this process, we eventually need to cycle back, which corresponds to a cycle in the graph. This completes the proof to (a). 
+
+		\item We induct on the size of the square submatrix. For the base case of $1 \times 1$ matrices, every entry is either $0$ or $\pm 1$. Hence they all have determinant in $\{0, \pm 1\}$. Now suppose all submatrices of size $n \times n$ have determinant in $\{0, \pm 1\}$. We will prove this for $(n+1) \times (n+1)$ matrices. If there is a column with at most $1$ non-zero entry, we are done because the determinant is this non-zero entry multiplied by the $n \times n$ submatrix obtained by deleting the corresponding row and column. Otherwise, if every column has exactly two non-zero entries, they must be $1$ and $-1$. Then the sum of all the rows are $0$, which implies that the determinant is $0$. This proves (b). 
+
+		\item Permute the columns of the algebraic matroid in (b) so that the first $n$ columns are linearly independent. I claim that with a series of row operations, we can change the first $n$ columns so that it is a permutation matrix while preserving unimoduarlity. Indeed, suppose through a series of row operations which preserve unimodularity, we have changed the first $s-1$ columns to be columns in a permutation matrix. These are distinct basis vectors since otherwise they wouldn't be linearly independent. In the $s$th column, locate an entry $x_{st}$ which is non-zero and not in the same row as any of the $1$'s in the first $s-1$ columns. Such an entry exists from linear independence. Now, do the following operation:
+		\begin{itemize}
+			\item For $u \in [n] \backslash t$, subtract $x_{ut} / x_{st}$ times the $s$th row to the $u$th row. 
+			\item Multiply the $s$th row by $1/x_{st}$. 
+		\end{itemize}
+		This preserves the linear independence of the first $n$ columns. Note that this does not change any of the first $s-1$ columns since the entries are all zero to the left of $x_{st}$. It suffices to prove that it preserves unimodularity. Let $X$ by a square matrix and $Y$ the same submatrix after these operations. Let $R$ be the indices of the rows and $C$ the indices of the columns. If $s \in R$, then to get $Y$ from $X$ we have done row operations within $X$. Hence $\det Y = \det X \in \{0, \pm 1\}$. Now suppose $s \notin R$. If $t \in C$, then we have a row of zeros in $Y$, which implies $\det Y = 0$. Now suppose $t \notin C$ as well. Consider $X', Y'$ the submatrices before and after the operation indexed by rows $R \times \{s\}$ and columns $C \times \{t\}$. Note that the entries in column $t$ are all $0$ except for the $s, t$ entry. This entry is $1$. Hence, $\det Y' = \det Y$. But, from the first case, we already know that $\det Y' \in \{0, \pm 1\}$. Hence the transformations work. We can do the transformations on the first $n$ columns. This implies that the rows not touched by these $1$'s are all zero since they all must lie in the same $n$ dimensional vector space. Deleting these rows, we get the desired result. 
+	\end{enumerate}
+\end{proof}
+
+\newpage 
+
+\subsection{Problem 5.7}
+
+\begin{problem}
+	Let $M = (E, \mathcal{I})$ be a graphic matroid of rank $n$. Consider a bipartition of $E = X \sqcup Y$. Let $f_i$ denote the numbers of bases $B$ such that $|B \cap X| = i$ and $|B \cap Y| = n-i$. Prove that $\{f_i\}$ is log-concave.
+\end{problem}
+
+\begin{proof}
+	Let $X = \{x_1, \ldots, x_s\}$	and $Y = \{y_1, \ldots, y_t\}$ where $E = \{x_1, \ldots , x_s, y_1, \ldots, y_t\}$ is unimodular. Then 
+ \begin{align*}
+ 	\Vol_n(\lambda_1 Z(X) + \lambda_2 Z(Y)) & = \Vol_n(Z(\lambda_1 x_1, \ldots \lambda_1 x_s, \lambda_2 y_1, \ldots, \lambda_2 y_t)) = \sum_{i = 0}^n f_i \cdot \lambda_1^i \lambda_2^{n-i}
+ \end{align*}
+ from Problem~\ref{problem-3.5} and unimodularity. On the other hand, we have 
+ \[
+ 	\Vol_n(\lambda_1 Z(X) + \lambda_2 Z(Y)) = \sum_{i = 0}^n \binom{n}{k} V_n(Z(X)[i], Z(Y)[n-i]) \cdot \lambda_1^i \lambda_2^{n-i}.
+ \]
+ By matching coefficients, we get the equality
+ \[
+ 	\frac{f_i}{\binom{n}{i}} = V_n(Z(X)[i], Z(Y)[n-i]).
+ \]
+ Thus $f_i$ is ultra-log-concave, in particular, log-concave. This suffices for the proof.
+\end{proof}
+
+\newpage 
+
+\bibliographystyle{plain}
+\bibliography{ref}
+
+\end{document}

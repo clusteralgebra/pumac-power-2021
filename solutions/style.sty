@@ -1,0 +1,189 @@
+\usepackage[dvipsnames]{xcolor}
+\usepackage{xcolor, amsmath, amsfonts, amsthm, amssymb, graphicx, tikz-cd, enumerate, mathtools, xpatch, enumitem, dsfont}
+\usepackage[margin=0.75in]{geometry}
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+%\usepackage{newpxtext}
+%\usepackage{newtxmath}
+%\usepackage{fontspec}
+\usepackage{mathrsfs}
+\usepackage{thmtools}
+\usepackage[framemethod=TikZ]{mdframed}
+\mdfdefinestyle{mdbluebox}{%
+    roundcorner = 10pt,
+    linewidth=1pt,
+    skipabove=12pt,
+    innerbottommargin=9pt,
+    skipbelow=2pt,
+    linecolor=blue,
+    nobreak=true,
+    backgroundcolor=TealBlue!5,
+}
+\declaretheoremstyle[
+    headfont=\sffamily\bfseries\color{MidnightBlue},
+    mdframed={style=mdbluebox},
+    headpunct={\\[3pt]},
+    postheadspace={0pt}
+]{thmbluebox}
+\mdfdefinestyle{mdredbox}{%
+    linewidth=0.5pt,
+    skipabove=12pt,
+    frametitleaboveskip=5pt,
+    frametitlebelowskip=0pt,
+    skipbelow=2pt,
+    frametitlefont=\bfseries,
+    innertopmargin=4pt,
+    innerbottommargin=8pt,
+    nobreak=true,
+    backgroundcolor=Salmon!5,
+    linecolor=RawSienna,
+}
+\declaretheoremstyle[
+    headfont=\bfseries\color{RawSienna},
+    mdframed={style=mdredbox},
+    headpunct={\\[3pt]},
+    postheadspace={0pt},
+]{thmredbox}
+\mdfdefinestyle{mdgreenbox}{%
+    skipabove=8pt,
+    linewidth=2pt,
+    rightline=false,
+    leftline=true,
+    topline=false,
+    bottomline=false,
+    linecolor=ForestGreen,
+    backgroundcolor=ForestGreen!5,
+}
+\declaretheoremstyle[
+    headfont=\bfseries\sffamily\color{ForestGreen!70!black},
+    bodyfont=\normalfont,
+    spaceabove=2pt,
+    spacebelow=1pt,
+    mdframed={style=mdgreenbox},
+    headpunct={ --- },
+]{thmgreenbox}
+\mdfdefinestyle{mdblackbox}{%
+    skipabove=8pt,
+    linewidth=3pt,
+    rightline=false,
+    leftline=true,
+    topline=false,
+    bottomline=false,
+    linecolor=black,
+    backgroundcolor=RedViolet!5!gray!5,
+}
+\declaretheoremstyle[
+    headfont=\bfseries,
+    bodyfont=\normalfont\small,
+    spaceabove=0pt,
+    spacebelow=0pt,
+    mdframed={style=mdblackbox}
+]{thmblackbox}
+\newcommand{\listhack}{$\empty$\vspace{-2em}}
+
+\declaretheorem[style=thmbluebox,name=Theorem,numberwithin=section]{theorem}
+\declaretheorem[style=thmbluebox,name=Problem]{problem}
+
+\newcommand{\1}{\mathds{1}}
+
+
+% Topology
+\DeclareMathOperator{\tint}{int} % interior (topology)
+\DeclareMathOperator{\clo}{clo}
+\DeclareMathOperator{\supp}{supp} % support
+\DeclareMathOperator{\lin}{lin}
+\DeclareMathOperator{\im}{im}
+
+% sets
+
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\HH}{\mathbb{H}}
+\newcommand{\ZZ}{\mathcal{Z}}
+\newcommand{\NN}{\mathcal{N}}
+
+% Math Cal Sets
+\newcommand{\mc}[1]{\mathcal{#1}}
+\newcommand{\mcA}{\mathcal{A}}
+\newcommand{\mcB}{\mathcal{B}}
+\newcommand{\mcC}{\mathcal{C}}
+\newcommand{\mcD}{\mathcal{D}}
+\newcommand{\mcE}{\mathcal{E}}
+\newcommand{\mcF}{\mathcal{F}}
+\newcommand{\mcG}{\mathcal{G}}
+\newcommand{\mcH}{\mathcal{H}}
+\newcommand{\mcI}{\mathcal{I}}
+\newcommand{\mcJ}{\mathcal{J}}
+\newcommand{\mcK}{\mathcal{K}}
+\newcommand{\mcL}{\mathcal{L}}
+\newcommand{\mcM}{\mathcal{M}}
+\newcommand{\mcN}{\mathcal{N}}
+\newcommand{\mcO}{\mathcal{O}}
+\newcommand{\mcP}{\mathcal{P}}
+\newcommand{\mcQ}{\mathcal{Q}}
+\newcommand{\mcR}{\mathcal{R}}
+\newcommand{\mcS}{\mathcal{S}}
+\newcommand{\mcT}{\mathcal{T}}
+\newcommand{\mcU}{\mathcal{U}}
+\newcommand{\mcV}{\mathcal{V}}
+\newcommand{\mcW}{\mathcal{W}}
+\newcommand{\mcX}{\mathcal{X}}
+\newcommand{\mcY}{\mathcal{Y}}
+\newcommand{\mcZ}{\mathcal{Z}}
+
+% Math Frak Sets
+\newcommand{\mfA}{\mathfrak{A}}
+\newcommand{\mfB}{\mathfrak{B}}
+\newcommand{\mfC}{\mathfrak{C}}
+\newcommand{\mfD}{\mathfrak{D}}
+\newcommand{\mfE}{\mathfrak{E}}
+\newcommand{\mfF}{\mathfrak{F}}
+\newcommand{\mfG}{\mathfrak{G}}
+\newcommand{\mfH}{\mathfrak{H}}
+\newcommand{\mfI}{\mathfrak{I}}
+\newcommand{\mfJ}{\mathfrak{J}}
+\newcommand{\mfK}{\mathfrak{K}}
+\newcommand{\mfL}{\mathfrak{L}}
+\newcommand{\mfM}{\mathfrak{M}}
+\newcommand{\mfN}{\mathfrak{N}}
+\newcommand{\mfO}{\mathfrak{O}}
+\newcommand{\mfP}{\mathfrak{P}}
+\newcommand{\mfQ}{\mathfrak{Q}}
+\newcommand{\mfR}{\mathfrak{R}}
+\newcommand{\mfS}{\mathfrak{S}}
+\newcommand{\mfT}{\mathfrak{T}}
+\newcommand{\mfU}{\mathfrak{U}}
+\newcommand{\mfV}{\mathfrak{V}}
+\newcommand{\mfW}{\mathfrak{W}}
+\newcommand{\mfX}{\mathfrak{X}}
+\newcommand{\mfY}{\mathfrak{Y}}
+\newcommand{\mfZ}{\mathfrak{Z}}
+
+\newtheorem{corollary}{Corollary}
+\newtheorem{lemma}{Lemma}
+\newtheorem{thm}{Theorem}
+
+
+% Probability and Statistics
+
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cov}{Cov}
+\DeclareMathOperator{\conv}{conv}
+\DeclareMathOperator{\rint}{relint}
+\DeclareMathOperator{\rbd}{rebd}
+\DeclareMathOperator{\dist}{dist}
+\DeclareMathOperator{\Vol}{Vol}
+\DeclareMathOperator{\aff}{aff}
+\DeclareMathOperator{\pos}{pos}
+%\DeclareMathOperator{\dist}{dist}
+\newtheorem{prop}{Proposition}
+\newtheorem{definition}{Definition}
+\newtheorem{fact}{Fact}
+%\newtheorem*{problem}{\textcolor{blue}{Problem}}
+
+
+\newenvironment{soln}{\begin{proof}[\textcolor{Bittersweet}{Solution}]}{\end{proof}}
+
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\legend}[2]{\left( \frac{#1}{#2}\right )}
+\newcommand{\kro}[2]{\left [\frac{#1}{#2} \right ]}
